@@ -32,6 +32,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GuiMarket extends GuiMinecraftLife
 {
+    private GuiMarket.List list;
     
     @Override
     public void drawScreen(int x, int y, float ticks)
@@ -40,12 +41,13 @@ public class GuiMarket extends GuiMinecraftLife
         int guiHeight = 150;
         int xPos = (this.width / 2) - (guiWidth / 2);
         int yPos = (this.height / 2) - (guiHeight / 2);
-        
         this.drawMinecraftLifeBackground(xPos, yPos, xPos + guiWidth, yPos + guiHeight);
-        this.drawLifeRect(xPos + 25, yPos + 25, xPos + 125, yPos + 11);
-        this.drawLifeRect(xPos + guiWidth - 125, yPos + 25, xPos + guiWidth - 25, yPos + 11);
-        this.drawString(fontRendererObj, "Shop Inventory", (xPos + 25) + (100 / 2) - (fontRendererObj.getStringWidth("Shop Inventory") / 2), (yPos + 25) + (11 / 2) - (fontRendererObj.FONT_HEIGHT / 2), 0xFFFFFF);
-        this.drawString(fontRendererObj, "My Inventory", (xPos + guiWidth - 125) + (100 / 2) - (fontRendererObj.getStringWidth("My Inventory") / 2), (yPos + 25) + (11 / 2) - (fontRendererObj.FONT_HEIGHT / 2), 0xFFFFFF);
+        this.drawOrangeRect(xPos + 25, yPos + 25, xPos + 125, yPos + 11);
+        this.drawOrangeRect(xPos + guiWidth - 125, yPos + 25, xPos + guiWidth - 25, yPos + 11);
+        this.drawString(fontRendererObj, "Market", xPos + 2, (yPos + 1) + (11 / 2) - (fontRendererObj.FONT_HEIGHT / 2), 0xFFFFFF);
+        this.drawString(fontRendererObj, "Shop Inventory", (xPos + 25) + (100 / 2) - (fontRendererObj.getStringWidth("Shop Inventory") / 2), (yPos + 26) + (11 / 2) - (fontRendererObj.FONT_HEIGHT / 2), 0xFFFFFF);
+        this.drawString(fontRendererObj, "My Inventory", (xPos + guiWidth - 125) + (100 / 2) - (fontRendererObj.getStringWidth("My Inventory") / 2), (yPos + 26) + (11 / 2) - (fontRendererObj.FONT_HEIGHT / 2), 0xFFFFFF);
+        //this.list.drawScreen(x, y, ticks);
         super.drawScreen(x, y, ticks);
     }
     
@@ -53,6 +55,13 @@ public class GuiMarket extends GuiMinecraftLife
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
+    }
+    
+    @Override
+    public void handleMouseInput() throws IOException
+    {
+        super.handleMouseInput();
+        this.list.handleMouseInput();
     }
 
     @Override
@@ -65,6 +74,7 @@ public class GuiMarket extends GuiMinecraftLife
     public void initGui()
     {
         this.buttonList.clear();
+        this.list = new GuiMarket.List();
     }
 
     @Override
@@ -73,6 +83,7 @@ public class GuiMarket extends GuiMinecraftLife
         switch(btn.id)
         {
             case 1:
+                Minecraft.getMinecraft().displayGuiScreen(null);
                 break;
             case 2:
                 Minecraft.getMinecraft().displayGuiScreen(null);
@@ -84,17 +95,16 @@ public class GuiMarket extends GuiMinecraftLife
     class List extends GuiSlot
     {
         public List()
-        {
-            super(GuiMarket.this.mc, GuiMarket.this.width/2, GuiMarket.this.height - 22, 11, GuiMarket.this.height - 11, GuiMarket.this.fontRendererObj.FONT_HEIGHT + 1);
-            this.left = GuiMarket.this.width / 2;
-            this.right = GuiMarket.this.width;
+        { 
+            super(GuiMarket.this.mc, 100, 89, 36, 25, GuiMarket.this.fontRendererObj.FONT_HEIGHT + 1);
+            System.out.println("to");
+            this.left = 0;
+            this.right = 100;
         }
 
         protected int getSize()
         {
-            //MinecraftLifeRPG.network.sendToServer(new PacketRequestPlayerList());
             return 35;
-            //return ClientProxy.getPlayerList().length;
         }
 
         /**
@@ -118,21 +128,13 @@ public class GuiMarket extends GuiMinecraftLife
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn)
         {
-            String[] playerList = ClientProxy.getPlayerList();
             String name = "Player" + entryID;
-            if(name.equalsIgnoreCase(Minecraft.getMinecraft().thePlayer.getDisplayNameString()))
-            {
-                GuiMarket.this.fontRendererObj.drawString(name, GuiMarket.this.width - this.width + 4, p_180791_3_, 0xFFFFFF);
-            }
-            else
-            {
-                GuiMarket.this.fontRendererObj.drawString(name, GuiMarket.this.width - this.width + 4, p_180791_3_, 0x37fb32);
-            }
+            GuiMarket.this.fontRendererObj.drawString(name, GuiMarket.this.width - this.width + 4, p_180791_3_, 0x37fb32);
         }
 
         protected int getScrollBarX()
         {
-            return GuiMarket.this.width - 6;
+            return (((this.width / 2) - (300 / 2)) + 100) - 6;
         }
         
         @Override
@@ -190,24 +192,8 @@ public class GuiMarket extends GuiMinecraftLife
 
                 GlStateManager.disableDepth();
                 int i1 = 4;
-                this.overlayBackground(0, this.top, 255, 255);
+                //this.overlayBackground(0, this.top, 255, 255);
                 //this.overlayBackground(this.bottom, this.height, 255, 255);
-                GlStateManager.enableBlend();
-                GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
-                GlStateManager.disableAlpha();
-                GlStateManager.shadeModel(7425);
-                GlStateManager.disableTexture2D();
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(0.0D, (double)GuiMarket.this.height, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos((double)GuiMarket.this.width, (double)GuiMarket.this.height, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos((double)GuiMarket.this.width, 0.0D, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-                tessellator.draw();
-                
-                GlStateManager.enableTexture2D();
-                GlStateManager.shadeModel(7424);
-                GlStateManager.enableAlpha();
-                GlStateManager.disableBlend();
                 
                 this.drawSelectionBox(k, l, mouseXIn, mouseYIn);
                 
@@ -217,30 +203,6 @@ public class GuiMarket extends GuiMinecraftLife
                 GlStateManager.shadeModel(7425);
                 GlStateManager.disableTexture2D();
                 
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 1.0D).color(157, 107, 20, 255).endVertex();
-                worldrenderer.pos(0.0D, 11.0D, 0.0D).tex(1.0D, 1.0D).color(157, 107, 20, 255).endVertex();
-                worldrenderer.pos((double)GuiMarket.this.width, 11.0D, 0.0D).tex(1.0D, 0.0D).color(157, 107, 20, 255).endVertex();
-                worldrenderer.pos((double)GuiMarket.this.width, 0.0D, 0.0D).tex(0.0D, 0.0D).color(157, 107, 20, 255).endVertex();
-                tessellator.draw();
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                worldrenderer.pos(0.0D, (double)GuiMarket.this.height - 11, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos(0.0D, (double)GuiMarket.this.height, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos((double)GuiMarket.this.width, (double)GuiMarket.this.height, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos((double)GuiMarket.this.width, (double)GuiMarket.this.height - 11, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-                tessellator.draw();
-              /*  worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                worldrenderer.pos((double)this.left, (double)(this.top + i1), 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 0).endVertex();
-                worldrenderer.pos((double)this.right, (double)(this.top + i1), 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 0).endVertex();
-                worldrenderer.pos((double)this.right, (double)this.top, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos((double)this.left, (double)this.top, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-                tessellator.draw();
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                worldrenderer.pos((double)this.left, (double)this.bottom, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos((double)this.right, (double)this.bottom, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-                worldrenderer.pos((double)this.right, (double)(this.bottom - i1), 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 0).endVertex();
-                worldrenderer.pos((double)this.left, (double)(this.bottom - i1), 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 0).endVertex();
-                tessellator.draw();*/
                 int j1 = this.func_148135_f();
 
                 if (j1 > 0)

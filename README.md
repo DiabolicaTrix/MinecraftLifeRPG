@@ -1,2 +1,3 @@
 # MinecraftLifeRPG
 I'm gonna write a readme later
+Git is ignoring my changes...
