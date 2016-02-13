@@ -1,0 +1,124 @@
+---- Minecraft Crash Report ----
+// I let you down. Sorry :(
+
+Time: 11/02/16 7:36 PM
+Description: Ticking entity
+
+io.netty.handler.codec.EncoderException: java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Integer
+	at io.netty.handler.codec.MessageToMessageEncoder.write(MessageToMessageEncoder.java:107)
+	at io.netty.handler.codec.MessageToMessageCodec.write(MessageToMessageCodec.java:116)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:658)
+	at io.netty.channel.AbstractChannelHandlerContext.write(AbstractChannelHandlerContext.java:716)
+	at io.netty.channel.AbstractChannelHandlerContext.write(AbstractChannelHandlerContext.java:651)
+	at io.netty.channel.AbstractChannelHandlerContext.write(AbstractChannelHandlerContext.java:637)
+	at io.netty.channel.DefaultChannelPipeline.write(DefaultChannelPipeline.java:880)
+	at io.netty.channel.AbstractChannel.write(AbstractChannel.java:230)
+	at io.netty.channel.embedded.EmbeddedChannel.writeOutbound(EmbeddedChannel.java:195)
+	at net.minecraftforge.fml.common.network.FMLEmbeddedChannel.generatePacketFrom(FMLEmbeddedChannel.java:50)
+	at net.minecraftforge.fml.common.network.internal.FMLNetworkHandler.getEntitySpawningPacket(FMLNetworkHandler.java:132)
+	at net.minecraft.entity.EntityTrackerEntry.createSpawnPacket(EntityTrackerEntry.java:497)
+	at net.minecraft.entity.EntityTrackerEntry.updatePlayerEntity(EntityTrackerEntry.java:370)
+	at net.minecraft.entity.EntityTracker.func_85172_a(EntityTracker.java:335)
+	at net.minecraft.entity.player.EntityPlayerMP.onUpdate(EntityPlayerMP.java:335)
+	at net.minecraft.world.World.updateEntityWithOptionalForce(World.java:2009)
+	at net.minecraft.world.WorldServer.updateEntityWithOptionalForce(WorldServer.java:724)
+	at net.minecraft.world.World.updateEntity(World.java:1974)
+	at net.minecraft.world.World.updateEntities(World.java:1803)
+	at net.minecraft.world.WorldServer.updateEntities(WorldServer.java:559)
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:777)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:681)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:159)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:548)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Integer
+	at net.minecraft.entity.DataWatcher.writeWatchableObjectToPacketBuffer(DataWatcher.java:270)
+	at net.minecraft.entity.DataWatcher.writeTo(DataWatcher.java:226)
+	at net.minecraftforge.fml.common.network.internal.FMLMessage$EntitySpawnMessage.toBytes(FMLMessage.java:196)
+	at net.minecraftforge.fml.common.network.internal.FMLRuntimeCodec.encodeInto(FMLRuntimeCodec.java:24)
+	at net.minecraftforge.fml.common.network.internal.FMLRuntimeCodec.encodeInto(FMLRuntimeCodec.java:13)
+	at net.minecraftforge.fml.common.network.FMLIndexedMessageToMessageCodec.encode(FMLIndexedMessageToMessageCodec.java:55)
+	at io.netty.handler.codec.MessageToMessageCodec$1.encode(MessageToMessageCodec.java:67)
+	at io.netty.handler.codec.MessageToMessageEncoder.write(MessageToMessageEncoder.java:89)
+	... 24 more
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at io.netty.handler.codec.MessageToMessageEncoder.write(MessageToMessageEncoder.java:107)
+	at io.netty.handler.codec.MessageToMessageCodec.write(MessageToMessageCodec.java:116)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:658)
+	at io.netty.channel.AbstractChannelHandlerContext.write(AbstractChannelHandlerContext.java:716)
+	at io.netty.channel.AbstractChannelHandlerContext.write(AbstractChannelHandlerContext.java:651)
+	at io.netty.channel.AbstractChannelHandlerContext.write(AbstractChannelHandlerContext.java:637)
+	at io.netty.channel.DefaultChannelPipeline.write(DefaultChannelPipeline.java:880)
+	at io.netty.channel.AbstractChannel.write(AbstractChannel.java:230)
+	at io.netty.channel.embedded.EmbeddedChannel.writeOutbound(EmbeddedChannel.java:195)
+	at net.minecraftforge.fml.common.network.FMLEmbeddedChannel.generatePacketFrom(FMLEmbeddedChannel.java:50)
+	at net.minecraftforge.fml.common.network.internal.FMLNetworkHandler.getEntitySpawningPacket(FMLNetworkHandler.java:132)
+	at net.minecraft.entity.EntityTrackerEntry.createSpawnPacket(EntityTrackerEntry.java:497)
+	at net.minecraft.entity.EntityTrackerEntry.updatePlayerEntity(EntityTrackerEntry.java:370)
+	at net.minecraft.entity.EntityTracker.func_85172_a(EntityTracker.java:335)
+	at net.minecraft.entity.player.EntityPlayerMP.onUpdate(EntityPlayerMP.java:335)
+	at net.minecraft.world.World.updateEntityWithOptionalForce(World.java:2009)
+	at net.minecraft.world.WorldServer.updateEntityWithOptionalForce(WorldServer.java:724)
+	at net.minecraft.world.World.updateEntity(World.java:1974)
+
+-- Entity being ticked --
+Details:
+	Entity Type: null (net.minecraft.entity.player.EntityPlayerMP)
+	Entity ID: 443
+	Entity Name: Player174
+	Entity's Exact location: 285.76, 75.00, 216.84
+	Entity's Block location: 285.00,75.00,216.00 - World: (285,75,216), Chunk: (at 13,4,8 in 17,13; contains blocks 272,0,208 to 287,255,223), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Entity's Momentum: 0.01, -0.08, -0.03
+	Entity's Rider: ~~ERROR~~ NullPointerException: null
+	Entity's Vehicle: ~~ERROR~~ NullPointerException: null
+Stacktrace:
+	at net.minecraft.world.World.updateEntities(World.java:1803)
+	at net.minecraft.world.WorldServer.updateEntities(WorldServer.java:559)
+
+-- Affected level --
+Details:
+	Level name: Nouveau monde
+	All players: 1 total; [EntityPlayerMP['Player174'/443, l='Nouveau monde', x=285.76, y=75.00, z=216.84]]
+	Chunk stats: ServerChunkCache: 625 Drop: 0
+	Level seed: -6035022371901519875
+	Level generator: ID 00 - default, ver 1. Features enabled: true
+	Level generator options: 
+	Level spawn location: 256.00,64.00,236.00 - World: (256,64,236), Chunk: (at 0,4,12 in 16,14; contains blocks 256,0,224 to 271,255,239), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Level time: 15069 game time, 15069 day time
+	Level dimension: 0
+	Level storage version: 0x04ABD - Anvil
+	Level weather: Rain time: 36012 (now: false), thunder time: 51580 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: true
+Stacktrace:
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:777)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:681)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:159)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:548)
+	at java.lang.Thread.run(Thread.java:745)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Linux (amd64) version 4.2.0-27-generic
+	Java Version: 1.7.0_95, Oracle Corporation
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 817582992 bytes (779 MB) / 1038876672 bytes (990 MB) up to 1038876672 bytes (990 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 13, tallocated: 95
+	FML: MCP 9.19 Powered by Forge 11.15.1.1732 4 mods loaded, 4 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+	UCHIJAAAA	mcp{9.19} [Minecraft Coder Pack] (minecraft.jar) 
+	UCHIJAAAA	FML{8.0.99.99} [Forge Mod Loader] (forgeSrc-1.8.9-11.15.1.1732.jar) 
+	UCHIJAAAA	Forge{11.15.1.1732} [Minecraft Forge] (forgeSrc-1.8.9-11.15.1.1732.jar) 
+	UCHIJAAAA	mclrpg{0.1} [Minecraft Life RPG] (bin) 
+	Loaded coremods (and transformers): 
+	GL info: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	Profiler Position: N/A (disabled)
+	Player Count: 1 / 8; [EntityPlayerMP['Player174'/443, l='Nouveau monde', x=285.76, y=75.00, z=216.84]]
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'fml,forge'

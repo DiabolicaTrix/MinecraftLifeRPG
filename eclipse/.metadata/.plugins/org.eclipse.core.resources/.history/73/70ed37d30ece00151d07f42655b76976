@@ -1,0 +1,52 @@
+package me.diabolicatrix.mcliferpg;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraftforge.common.IExtendedEntityProperties;
+
+public class PlayerExtendedEntityProperties implements IExtendedEntityProperties
+{
+
+    public final static String EXT_PROP_NAME = "MCLRPGPlayerEEP";
+
+    private EntityPlayer player;
+
+    public int side;
+
+    public PlayerExtendedEntityProperties(EntityPlayer player)
+    {
+        this.player = player;
+        this.side = 0;
+    }
+
+    public static final void register(EntityPlayer player)
+    {
+        player.registerExtendedProperties(PlayerExtendedEntityProperties.EXT_PROP_NAME, new PlayerExtendedEntityProperties(player));
+    }
+
+    public static final PlayerExtendedEntityProperties get(EntityPlayer player)
+    {
+        return (PlayerExtendedEntityProperties)player.getExtendedProperties(EXT_PROP_NAME);
+    }
+
+    @Override
+    public void saveNBTData(NBTTagCompound compound)
+    {
+
+    }
+
+    @Override
+    public void loadNBTData(NBTTagCompound compound)
+    {
+
+    }
+
+    @Override
+    public void init(Entity entity, World world)
+    {
+
+    }
+
+}

@@ -1,0 +1,38 @@
+package me.diabolicatrix.proxy;
+
+public class ClientProxy extends CommonProxy
+{
+    public static boolean isLoaded = false;
+    public static int side = 0;
+    public static String[] playerList;
+    
+    public static int getSide()
+    {
+        return side;
+    }
+
+    public static void setSide(int side)
+    {
+        ClientProxy.side = side;
+    }
+
+    public static String[] getPlayerList()
+    {
+        return playerList;
+    }
+
+    public static void setPlayerList(String[] playerList)
+    {
+        ClientProxy.playerList = playerList;
+    }
+
+    public static boolean isLoaded()
+    {
+        return isLoaded;
+    }
+
+    public static void setLoaded(boolean isLoaded)
+    {
+        ClientProxy.isLoaded = isLoaded;
+    }
+}

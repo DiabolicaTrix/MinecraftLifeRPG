@@ -1,0 +1,55 @@
+package me.diabolicatrix.entities;
+
+import me.diabolicatrix.other.LifeTraderEEP;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.ThreadDownloadImageData;
+import net.minecraft.client.renderer.entity.RenderBiped;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.entity.DataWatcher;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.util.ResourceLocation;
+import scala.reflect.internal.Mode;
+
+public class RenderLifeTrader extends RenderBiped {
+    
+    public ResourceLocation locationSkin;
+    public ThreadDownloadImageData downloadImageSkin = null;
+    public String textureChanged;
+    
+    public RenderLifeTrader(RenderManager renderManagerIn)
+    {
+        super(renderManagerIn, new ModelBiped(), 0.5F);
+    }
+    
+    protected ResourceLocation getEntityTexture(EntityLiving living)
+    {
+        LifeTraderEEP props = LifeTraderEEP.get(living);
+        DataWatcher dw = living.getDataWatcher();
+        String texture = dw.getWatchableObjectString(20);
+        
+        TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+        Object object = texturemanager.getTexture(props.getLocation(texture));
+        
+        if(props.texture != texture)
+        {
+            props.downloadImage = null;
+        }
+        
+        if(props.downloadImage == null)
+        {
+            props.downloadImage = props.getDownloadImage(props.getLocation(texture), texture);
+        }
+        
+        prop.texture = texture;
+        return prop.getLocationHat(texture);
+    }
+
+    private ResourceLocation getDefaultPNJTexture()
+    {
+        return new ResourceLocation("t4pro", "textures/entity/steve.png");
+    }
+
+}
+

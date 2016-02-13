@@ -1,0 +1,21 @@
+package me.diabolicatrix.registries;
+
+import me.diabolicatrix.items.ItemDebug;
+import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
+public class ItemRegistry
+{
+    public static Item debugItem;
+    
+    public static void registerItems()
+    {
+        debugItem = new ItemDebug();
+        GameRegistry.registerItem(debugItem, "itemDebug");
+    }
+    
+    public static void registerRecipes()
+    {
+        
+    }
+}

@@ -1,0 +1,70 @@
+package me.diabolicatrix.other;
+
+import me.diabolicatrix.packets.PacketPlayerEEP;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraftforge.common.IExtendedEntityProperties;
+
+public class PlayerEEP implements IExtendedEntityProperties
+{
+    public final static String EXT_PROP_NAME = "MCLRPGEEP";
+
+    private EntityPlayer player;
+
+    private int side;
+
+    public PlayerEEP(EntityPlayer player)
+    {
+        this.player = player;
+        this.side = 0;
+    }
+
+    public static final void register(EntityPlayer player)
+    {
+        player.registerExtendedProperties(PlayerEEP.EXT_PROP_NAME, new PlayerEEP(player));
+    }
+
+    public static final PlayerEEP get(EntityPlayer player)
+    {
+        return (PlayerEEP)player.getExtendedProperties(EXT_PROP_NAME);
+    }
+
+    @Override
+    public void saveNBTData(NBTTagCompound compound)
+    {
+        NBTTagCompound properties = new NBTTagCompound();
+
+        properties.setInteger("Side", this.side);
+
+        compound.setTag(EXT_PROP_NAME, properties);
+    }
+
+    @Override
+    public void loadNBTData(NBTTagCompound compound)
+    {
+        NBTTagCompound properties = (NBTTagCompound)compound.getTag(EXT_PROP_NAME);
+        this.side = properties.getInteger("Side");
+    }
+    
+    public void sync() {
+       ;
+            //La ligne suivante dépend de votre manière d'envoyer les packets. Celle-ci vient de mon mod, je ne la changerais pas car je ne peux l'appliquer à votre mod, mais elle reste bonne pour un exemple.
+            RcMod.rcModPacketHandler.sendToServer(new PacketPlayerEEP(this.side));
+        
+
+        if (!player.worldObj.isRemote) {
+            EntityPlayerMP player1 = (EntityPlayerMP) player;
+                        //Ici, même chose que précédemment, sauf que le packet est envoyé au player.
+            RcMod.rcModPacketHandler.sendTo(new PacketPlayerEEPClient(this.side), player1);
+        }
+    }
+
+    @Override
+    public void init(Entity entity, World world)
+    {
+
+    }
+
+}

@@ -1,0 +1,24 @@
+package me.diabolicatrix.gui;
+
+import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.ResourceLocation;
+
+public class GuiBluforButton extends GuiButton
+{
+    protected static final ResourceLocation buttonTextures = new ResourceLocation(MinecraftLifeRPG.MODID + ":textures/gui/bluforbtn.png");
+    
+    public GuiBluforButton(int buttonId, int x, int y, String buttonText)
+    {
+        super(buttonId, x, y, 50, 50, buttonText);
+    }
+    
+    @Override
+    public void playPressSound(SoundHandler soundHandlerIn)
+    {
+        
+    }
+
+}

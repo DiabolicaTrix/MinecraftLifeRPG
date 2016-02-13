@@ -1,0 +1,46 @@
+package me.diabolicatrix.packets;
+
+import io.netty.buffer.ByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
+public class PacketRequestPlayerList implements IMessage
+{
+    public String[] playerList;
+
+    public PacketRequestPlayerList(String[] playerList)
+    {
+       this.playerList = playerList;
+    }
+    
+    @Override
+    public void fromBytes(ByteBuf buf)
+    {
+        for(String name : this.playerList)
+        {
+            playerList = ByteBufUtils.readUTF8String(buf);
+        }
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf)
+    {
+        for(String name : this.playerList)
+        {
+            ByteBufUtils.writeUTF8String(buf, playerList);
+        }
+    }
+
+    public static class Handler implements IMessageHandler<PacketRequestPlayerList, IMessage> {
+        
+        @Override
+        public IMessage onMessage(PacketRequestPlayerList message, MessageContext ctx) {
+            MinecraftServer.getServer().getAllUsernames();
+            return null;
+        }
+    }
+    
+}

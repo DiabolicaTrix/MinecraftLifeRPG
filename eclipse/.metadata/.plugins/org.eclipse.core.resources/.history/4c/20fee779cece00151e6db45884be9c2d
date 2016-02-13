@@ -1,0 +1,32 @@
+package me.diabolicatrix.events;
+
+import me.diabolicatrix.proxy.ClientProxy;
+import net.minecraft.entity.DataWatcher;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+public class OtherEventHandler
+{
+    @SubscribeEvent
+    public void onPlayerContruct(EntityConstructing event)
+    {
+        if(event.entity instanceof EntityPlayer)
+        {
+            DataWatcher dw = event.entity.getDataWatcher();
+            dw.addObject(25, 0);
+        }
+    }
+    
+    @SubscribeEvent
+    public void onPlayerDeath(LivingDeathEvent event)
+    {
+        if(event.entity != null && event.entity instanceof EntityPlayer)
+        {
+            DataWatcher dw = event.entity.getDataWatcher();
+            ClientProxy.setSide(dw.getWatchableObjectInt(25));
+            System.out.println(dw.getWatchableObjectInt(25));
+        }
+    }
+}

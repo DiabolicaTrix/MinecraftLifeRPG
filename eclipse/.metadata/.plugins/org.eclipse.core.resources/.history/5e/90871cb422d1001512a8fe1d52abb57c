@@ -1,0 +1,8 @@
+package me.diabolicatrix.gui;
+
+import net.minecraft.client.gui.GuiButton;
+
+public class GuiBlackButton extends GuiButton
+{
+
+}

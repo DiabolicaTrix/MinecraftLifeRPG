@@ -1,0 +1,60 @@
+package me.diabolicatrix.packets;
+
+import io.netty.buffer.ByteBuf;
+import me.diabolicatrix.mcliferpg.PlayerExtendedEntityProperties;
+import me.diabolicatrix.proxy.ClientProxy;
+import net.minecraft.client.Minecraft;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+public class PacketPlayerExtendedEntityProperties implements IMessage
+{
+
+    public int side;
+
+    public PacketPlayerExtendedEntityProperties()
+    {}
+
+    public PacketPlayerExtendedEntityProperties(int side)
+    {
+        this.side = side;
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf)
+    {
+        this.side = buf.readInt();
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf)
+    {
+        buf.writeInt(this.side);
+    }
+
+    public static class Handler implements IMessageHandler<PacketPlayerExtendedEntityProperties, IMessage>
+    {
+
+        @Override
+        public IMessage onMessage(PacketPlayerExtendedEntityProperties message, MessageContext ctx)
+        {
+            if(ctx.side == Side.CLIENT)
+            { 
+                PlayerExtendedEntityProperties props = PlayerExtendedEntityProperties.get(Minecraft.getMinecraft().thePlayer);
+                props.side = message.side;
+            }
+            else
+            {
+                PlayerExtendedEntityProperties props = PlayerExtendedEntityProperties.get(ctx.getServerHandler().playerEntity);
+                props.side = message.side;
+            }
+            return null;
+        }
+
+    }
+
+}

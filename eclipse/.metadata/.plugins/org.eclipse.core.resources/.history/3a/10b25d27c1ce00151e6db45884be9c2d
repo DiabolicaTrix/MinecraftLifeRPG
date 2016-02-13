@@ -1,0 +1,64 @@
+package me.diabolicatrix.mcliferpg;
+
+import me.diabolicatrix.proxy.CommonProxy;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
+
+public class EEPEventHandler
+{
+
+    @SubscribeEvent
+    public void onEntityConstructing(EntityConstructing event)
+    {
+
+        if(event.entity instanceof EntityPlayer && PlayerExtendedEntityProperties.get((EntityPlayer)event.entity) == null)
+        {
+            System.out.println("Allright!");
+            PlayerExtendedEntityProperties.register((EntityPlayer)event.entity);
+        }
+    }
+
+    @SubscribeEvent
+    public void onLivingDeathEvent(LivingDeathEvent event)
+    {
+        if(!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer)
+        {
+            NBTTagCompound playerData = new NBTTagCompound();
+            ((PlayerExtendedEntityProperties)(event.entity.getExtendedProperties(PlayerExtendedEntityProperties.EXT_PROP_NAME))).saveNBTData(playerData);
+            CommonProxy.storeEntityData(((EntityPlayer)event.entity).getDisplayNameString(), playerData);
+            PlayerExtendedEntityProperties.saveProxyData((EntityPlayer)event.entity);
+        }
+    }
+
+    @SubscribeEvent
+    public void onEntityJoinWorld(EntityJoinWorldEvent event)
+    {
+        if(!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer)
+        {
+            NBTTagCompound playerData = CommonProxy.getEntityData(((EntityPlayer)event.entity).getDisplayNameString());
+            
+            if(playerData != null)
+            {
+                ((PlayerExtendedEntityProperties)(event.entity.getExtendedProperties(PlayerExtendedEntityProperties.EXT_PROP_NAME))).loadNBTData(playerData);
+            }
+
+            ((PlayerExtendedEntityProperties)(event.entity.getExtendedProperties(PlayerExtendedEntityProperties.EXT_PROP_NAME))).sync();
+        }
+    }
+    
+    @SubscribeEvent
+    public void onPlayerLogin(PlayerLoggedOutEvent event)
+    {
+        if(!event.player.worldObj.isRemote && event.player instanceof EntityPlayer)
+        {
+            NBTTagCompound playerData = CommonProxy.getEntityData(((EntityPlayer)event.player).getDisplayNameString());
+        }
+    }
+
+}

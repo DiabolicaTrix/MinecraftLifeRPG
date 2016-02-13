@@ -1,0 +1,48 @@
+package me.diabolicatrix.events;
+
+import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
+import me.diabolicatrix.packets.PacketSync;
+import me.diabolicatrix.proxy.ClientProxy;
+import me.diabolicatrix.proxy.CommonProxy;
+import net.minecraft.entity.DataWatcher;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+public class OtherEventHandler
+{
+    @SubscribeEvent
+    public void onPlayerContruct(EntityConstructing event)
+    {
+        if(event.entity instanceof EntityPlayer)
+        {
+            DataWatcher dw = event.entity.getDataWatcher();
+            dw.addObject(25, 0);
+        }
+    }
+    
+    @SubscribeEvent
+    public void onPlayerDeath(LivingDeathEvent event)
+    {
+        if(event.entity != null && event.entity instanceof EntityPlayer)
+        {
+            System.out.println("Dead!");
+            DataWatcher dw = event.entity.getDataWatcher();
+            MinecraftLifeRPG.proxy.setSide(dw.getWatchableObjectInt(25));
+        }
+    }
+    
+    @SubscribeEvent
+    public void onPlayerRespawn(EntityJoinWorldEvent event)
+    {
+        if(event.entity != null && event.entity instanceof EntityPlayer)
+        {
+            DataWatcher dw = event.entity.getDataWatcher();
+            dw.updateObject(25, MinecraftLifeRPG.proxy.getSide());
+            MinecraftLifeRPG.network.sendToServer(new PacketSync(MinecraftLifeRPG.proxy.getSide()));
+            MinecraftLifeRPG.proxy.setSide(0);
+        }
+    }
+}

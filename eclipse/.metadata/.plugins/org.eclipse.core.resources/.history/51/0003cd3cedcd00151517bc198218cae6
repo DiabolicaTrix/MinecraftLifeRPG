@@ -1,0 +1,10 @@
+package me.diabolicatrix.gui;
+
+public class Snippet
+{
+    public static void main(String[] args)
+    {
+        GuiButton.class
+    }
+}
+

@@ -1,0 +1,44 @@
+package me.diabolicatrix.packets;
+
+import io.netty.buffer.ByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
+public class PacketPlayerEEP implements IMessage
+{
+    public int side;
+    
+    public PacketPlayerEEP()
+    {
+        
+    }
+    
+    public PacketPlayerEEP(int side)
+    {
+        this.side = side;
+    }
+    
+    @Override
+    public void fromBytes(ByteBuf buf)
+    {
+        this.side = buf.readInt();
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf)
+    {
+        buf.writeInt(this.side);
+    }
+
+    public static class Handler implements IMessageHandler<PacketPlayerEEP, IMessage> {
+        
+        @Override
+        public IMessage onMessage(PacketPlayerEEP message, MessageContext ctx) {
+            return null;
+        }
+    }
+    
+}

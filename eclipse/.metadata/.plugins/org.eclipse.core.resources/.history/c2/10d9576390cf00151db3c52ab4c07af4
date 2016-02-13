@@ -1,0 +1,51 @@
+package me.diabolicatrix.packets;
+
+import io.netty.buffer.ByteBuf;
+import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
+import me.diabolicatrix.other.PlayerEEP;
+import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
+public class PacketPlayerEEPClient implements IMessage
+{
+    public int side;
+
+    public PacketPlayerEEPClient()
+    {
+
+    }
+
+    public PacketPlayerEEPClient(int side)
+    {
+        this.side = side;
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf)
+    {
+        this.side = buf.readInt();
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf)
+    {
+        buf.writeInt(this.side);
+    }
+
+    public static class Handler implements IMessageHandler<PacketPlayerEEPClient, IMessage>
+    {
+
+        @Override
+        public IMessage onMessage(PacketPlayerEEPClient message, MessageContext ctx)
+        {
+            PlayerEEP props = PlayerEEP.get(Minecraft.getMinecraft().thePlayer);
+            props.setSide(message.side);
+            return null;
+        }
+    }
+
+}

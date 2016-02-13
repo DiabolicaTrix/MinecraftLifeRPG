@@ -1,0 +1,12 @@
+package me.diabolicatrix.items;
+
+import net.minecraft.item.Item;
+
+public class ItemTradeConfigurator extends Item
+{
+    public ItemTradeConfigurator()
+    {
+        this.setUnlocalizedName("traderConfigurator");
+        this.maxStackSize = 1;
+    }
+}

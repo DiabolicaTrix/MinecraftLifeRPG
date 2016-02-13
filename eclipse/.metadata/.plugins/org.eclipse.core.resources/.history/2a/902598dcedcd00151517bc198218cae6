@@ -1,0 +1,13 @@
+package me.diabolicatrix.gui;
+
+import net.minecraft.client.gui.GuiButton;
+
+public class GuiBluforButton extends GuiButton
+{
+
+    public GuiBluforButton(int buttonId, int x, int y, String buttonText)
+    {
+        super(buttonId, x, y, 50, 50, buttonText);
+    }
+
+}

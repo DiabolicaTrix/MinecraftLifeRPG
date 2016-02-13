@@ -1,0 +1,45 @@
+package me.diabolicatrix.events;
+
+import me.diabolicatrix.gui.GuiSideSelection;
+import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
+import me.diabolicatrix.mcliferpg.PlayerExtendedEntityProperties;
+import me.diabolicatrix.proxy.ClientProxy;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+
+public class PlayerEventHandler
+{
+
+    @SubscribeEvent
+    public void onPlayerLogin(PlayerLoggedInEvent event)
+    {
+        if(event.player != null)
+        {
+            ClientProxy.setLoaded(false);
+            //System.out.println("IsLoaded Setted!");
+            //event.player.openGui(MinecraftLifeRPG.instance, 0, event.player.worldObj, (int) event.player.posX, (int) event.player.posY, (int) event.player.posZ);
+            //System.out.println("Gui Opened!");
+        }
+    }
+    
+    @SubscribeEvent
+    public void onPlayerLoginTick(TickEvent.PlayerTickEvent event)
+    {
+        
+        if(event.player != null && !ClientProxy.isLoaded())
+        {
+            if(!(Minecraft.getMinecraft().currentScreen instanceof GuiSideSelection))
+            {
+                Minecraft.getMinecraft().displayGuiScreen(new GuiSideSelection(event.player));
+                //event.player.openGui(MinecraftLifeRPG.instance, 0, event.player.getEntityWorld(), (int) event.player.posX, (int) event.player.posY, (int) event.player.posZ);
+                System.out.println("Gui Opened!");
+            }
+        }
+    }
+    
+}

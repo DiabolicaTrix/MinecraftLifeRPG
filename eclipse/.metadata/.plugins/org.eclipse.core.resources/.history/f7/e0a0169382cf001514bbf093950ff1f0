@@ -1,0 +1,56 @@
+package me.diabolicatrix.proxy;
+
+import org.lwjgl.input.Keyboard;
+
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+
+public class ClientProxy extends CommonProxy
+{
+    public static boolean isLoaded = false;
+    public static String[] playerList; 
+    public static KeyBinding debug;
+    private static int side = 0;
+
+    public static String[] getPlayerList()
+    {
+        return playerList;
+    }
+
+    public static void setPlayerList(String[] playerList)
+    {
+        ClientProxy.playerList = playerList;
+    }
+
+    public static boolean isLoaded()
+    {
+        return isLoaded;
+    }
+
+    public static void setLoaded(boolean isLoaded)
+    {
+        ClientProxy.isLoaded = isLoaded;
+    }
+    
+    @Override
+    public void registerKeybinds()
+    {
+        debug = new KeyBinding("mclrpg.keybind.debug", Keyboard.KEY_DELETE, "mclrpg.keybind.categories");
+
+        ClientRegistry.registerKeyBinding(debug);
+    }
+
+    @Override
+    public static int getSide()
+    {
+        return side;
+    }
+
+    @Override
+    public static void setSide(int side)
+    {
+        ClientProxy.side = side;
+    }
+    
+    
+}

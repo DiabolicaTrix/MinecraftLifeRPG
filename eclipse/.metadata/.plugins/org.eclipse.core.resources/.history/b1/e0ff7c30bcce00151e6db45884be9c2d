@@ -1,0 +1,42 @@
+package me.diabolicatrix.proxy;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import me.diabolicatrix.gui.GuiSideSelection;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
+
+public class CommonProxy implements IGuiHandler
+{
+
+    private static final Map<UUID, NBTTagCompound> extendedEntityData = new HashMap<UUID, NBTTagCompound>();
+    
+    @Override
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
+    {
+        return null;
+    }
+
+    @Override
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
+    {
+        if(ID == GuiSideSelection.ID)
+            return new GuiSideSelection(player);
+        return null;
+    }
+
+    public static void storeEntityData(UUID uuid, NBTTagCompound compound)
+    {
+        extendedEntityData.put(uuid, compound);
+    }
+
+    public static NBTTagCompound getEntityData(UUID uuid)
+    {
+        return extendedEntityData.remove(uuid);
+    }
+
+}

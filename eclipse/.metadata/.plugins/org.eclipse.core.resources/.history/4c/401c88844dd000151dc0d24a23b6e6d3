@@ -1,0 +1,62 @@
+package me.diabolicatrix.entities;
+
+import me.diabolicatrix.other.LifeTraderEEP;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.ThreadDownloadImageData;
+import net.minecraft.client.renderer.entity.RenderBiped;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.entity.DataWatcher;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.util.ResourceLocation;
+import scala.reflect.internal.Mode;
+
+public class RenderLifeTrader extends RenderBiped {
+    
+    private static final ResourceLocation zombieTextures = new ResourceLocation("textures/entity/zombie/zombie.png");
+    public ResourceLocation locationSkin;
+    public ThreadDownloadImageData downloadImageSkin = null;
+    public String textureChanged;
+    
+    public RenderLifeTrader(RenderManager renderManagerIn, ModelBiped model, float shadow)
+    {
+        super(renderManagerIn, model, renderManagerIn);
+    }
+    
+    /*protected ResourceLocation getEntityTexture(EntityLiving living)
+    {
+        LifeTraderEEP props = LifeTraderEEP.get(living);
+        DataWatcher dw = living.getDataWatcher();
+        String texture = dw.getWatchableObjectString(20);
+        
+        TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+        Object object = texturemanager.getTexture(props.getLocation(texture));
+        
+        if(props.texture != texture)
+        {
+            props.downloadImage = null;
+        }
+        
+        if(props.downloadImage == null)
+        {
+            props.downloadImage = props.getDownloadImage(props.getLocation(texture), texture);
+        }
+        
+        props.texture = texture;
+        return props.getLocation(texture);
+    }*/
+
+    @Override
+    protected ResourceLocation getEntityTexture(EntityLiving living)
+    {
+        return this.getCustomTexture((EntityLifeTrader) living);
+    }
+    
+    private ResourceLocation getCustomTexture(EntityLifeTrader entity)
+    {
+        return zombieTextures;
+    }
+
+}
+

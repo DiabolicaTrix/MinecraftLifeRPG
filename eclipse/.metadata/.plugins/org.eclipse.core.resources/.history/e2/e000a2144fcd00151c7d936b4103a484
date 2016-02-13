@@ -1,0 +1,42 @@
+package me.diabolicatrix.mcliferpg;
+
+import me.diabolicatrix.proxy.CommonProxy;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+
+
+@Mod(modid = "mclrpg", name = "Minecraft Life RPG", version = "0.1")
+public class MinecraftLifeRPG
+{
+    public static final String MODID = "mclrpg";
+
+    @Instance(MODID)
+    public static MinecraftLifeRPG mclrpg;
+    
+    @SidedProxy(clientSide = "me.diabolicatrix.proxy.ClientProxy", serverSide = "me.diabolicatrix.proxy.CommonProxy")
+    public static CommonProxy proxy;
+    
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        
+    }
+    
+    @EventHandler
+    public void init(FMLInitializationEvent event)
+    {
+
+    }
+    
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event)
+    {
+
+    }
+}

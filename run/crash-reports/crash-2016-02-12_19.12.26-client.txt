@@ -1,0 +1,110 @@
+---- Minecraft Crash Report ----
+// There are four lights!
+
+Time: 12/02/16 7:12 PM
+Description: Unexpected error
+
+java.lang.NullPointerException: Unexpected error
+	at me.diabolicatrix.entities.EntityLifeTrader.interact(EntityLifeTrader.java:45)
+	at net.minecraft.entity.EntityLiving.interactFirst(EntityLiving.java:1127)
+	at net.minecraft.entity.player.EntityPlayer.interactWith(EntityPlayer.java:1292)
+	at net.minecraft.client.multiplayer.PlayerControllerMP.interactWithEntitySendPacket(PlayerControllerMP.java:522)
+	at net.minecraft.client.Minecraft.rightClickMouse(Minecraft.java:1573)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:2146)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1100)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:384)
+	at net.minecraft.client.main.Main.main(Main.java:116)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:26)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at me.diabolicatrix.entities.EntityLifeTrader.interact(EntityLifeTrader.java:45)
+	at net.minecraft.entity.EntityLiving.interactFirst(EntityLiving.java:1127)
+	at net.minecraft.entity.player.EntityPlayer.interactWith(EntityPlayer.java:1292)
+	at net.minecraft.client.multiplayer.PlayerControllerMP.interactWithEntitySendPacket(PlayerControllerMP.java:522)
+	at net.minecraft.client.Minecraft.rightClickMouse(Minecraft.java:1573)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Player48'/248, l='MpServer', x=1197.87, y=4.00, z=-508.90]]
+	Chunk stats: MultiplayerChunkCache: 25, 25
+	Level seed: 0
+	Level generator: ID 01 - flat, ver 0. Features enabled: false
+	Level generator options: 
+	Level spawn location: 1209.00,4.00,-505.00 - World: (1209,4,-505), Chunk: (at 9,0,7 in 75,-32; contains blocks 1200,0,-512 to 1215,255,-497), Region: (2,-1; contains chunks 64,-32 to 95,-1, blocks 1024,0,-512 to 1535,255,-1)
+	Level time: 102073 game time, 102073 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 20 total; [EntitySheep['Mouton'/137, l='MpServer', x=1202.91, y=4.00, z=-541.97], EntityCow['Vache'/136, l='MpServer', x=1209.03, y=4.00, z=-539.09], EntityItem['item.item.seeds'/1180853, l='MpServer', x=1214.88, y=5.00, z=-481.53], EntityItem['item.item.wheat'/1180852, l='MpServer', x=1214.81, y=5.00, z=-481.53], EntitySlime['Slime'/516349, l='MpServer', x=1210.91, y=4.27, z=-475.41], EntitySlime['Slime'/686845, l='MpServer', x=1217.04, y=4.52, z=-509.01], EntityChicken['Poulet'/153, l='MpServer', x=1231.38, y=4.00, z=-553.38], EntitySlime['Slime'/52094, l='MpServer', x=1215.08, y=4.16, z=-486.32], EntityPlayerSP['Player48'/248, l='MpServer', x=1197.87, y=4.00, z=-508.90], EntityItem['item.item.egg'/991920, l='MpServer', x=1186.59, y=4.00, z=-542.25], EntityItem['item.item.rottenFlesh'/140568, l='MpServer', x=1186.38, y=4.00, z=-540.59], EntityLifeTrader['entity.mclrpg.lifeTrader.name'/110, l='MpServer', x=1199.50, y=4.00, z=-510.53], EntityItem['item.item.seeds'/656463, l='MpServer', x=1216.31, y=5.00, z=-480.34], EntityItem['item.item.seeds'/656462, l='MpServer', x=1216.47, y=5.00, z=-481.69], EntityItem['item.item.wheat'/656461, l='MpServer', x=1215.69, y=5.00, z=-482.44], EntityLifeTrader['entity.mclrpg.lifeTrader.name'/109, l='MpServer', x=1197.47, y=4.00, z=-510.50], EntityChicken['Poulet'/104, l='MpServer', x=1186.88, y=4.00, z=-542.31], EntityCow['Vache'/105, l='MpServer', x=1199.97, y=4.00, z=-544.00], EntityItem['item.item.seeds'/668559, l='MpServer', x=1217.47, y=5.00, z=-480.75], EntitySlime['Slime'/1405927, l='MpServer', x=1217.91, y=4.00, z=-534.03]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:393)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2675)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:413)
+	at net.minecraft.client.main.Main.main(Main.java:116)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:26)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Linux (amd64) version 4.2.0-27-generic
+	Java Version: 1.7.0_95, Oracle Corporation
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 583201392 bytes (556 MB) / 1038876672 bytes (990 MB) up to 1038876672 bytes (990 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP 9.19 Powered by Forge 11.15.1.1732 4 mods loaded, 4 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+	UCHIJAAAA	mcp{9.19} [Minecraft Coder Pack] (minecraft.jar) 
+	UCHIJAAAA	FML{8.0.99.99} [Forge Mod Loader] (forgeSrc-1.8.9-11.15.1.1732.jar) 
+	UCHIJAAAA	Forge{11.15.1.1732} [Minecraft Forge] (forgeSrc-1.8.9-11.15.1.1732.jar) 
+	UCHIJAAAA	mclrpg{0.1} [Minecraft Life RPG] (bin) 
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'X.Org' Version: '3.0 Mesa 11.0.2' Renderer: 'Gallium 0.4 on AMD ARUBA (DRM 2.43.0, LLVM 3.6.2)'
+	Launched Version: 1.8.9
+	LWJGL: 2.9.4
+	OpenGL: Gallium 0.4 on AMD ARUBA (DRM 2.43.0, LLVM 3.6.2) GL version 3.0 Mesa 11.0.2, X.Org
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: Français canadien (Canada)
+	Profiler Position: N/A (disabled)
+	CPU: 4x AMD A8-5500 APU with Radeon(tm) HD Graphics

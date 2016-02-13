@@ -1,0 +1,19 @@
+package me.diabolicatrix.mcliferpg;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+public class EEPEventHandler
+{
+
+    @SubscribeEvent
+    public void onEntityConstructing(EntityConstructing event)
+    {
+
+        if(event.entity instanceof EntityPlayer && PlayerExtendedEntityProperties.get((EntityPlayer)event.entity) == null)
+
+            PlayerExtendedEntityProperties.register((EntityPlayer)event.entity);
+    }
+
+}

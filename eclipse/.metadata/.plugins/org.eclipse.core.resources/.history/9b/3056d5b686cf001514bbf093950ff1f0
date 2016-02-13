@@ -1,0 +1,75 @@
+package me.diabolicatrix.gui;
+
+import java.io.IOException;
+
+import org.lwjgl.opengl.GL11;
+
+import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
+import me.diabolicatrix.packets.PacketRequestPlayerList;
+import me.diabolicatrix.packets.PacketSync;
+import me.diabolicatrix.proxy.ClientProxy;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.gui.GuiMultiplayer;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiSlot;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.DataWatcher;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+public class GuiRespawnMenu extends GuiScreen
+{
+    private EntityPlayer player;
+
+    @Override
+    public void drawScreen(int x, int y, float ticks)
+    {
+        this.drawDefaultBackground();
+        super.drawScreen(x, y, ticks);
+    }
+    
+    @Override
+    public boolean doesGuiPauseGame()
+    {
+        return false;
+    }
+    
+    @Override
+    public void initGui()
+    {
+        this.buttonList.clear();
+        this.buttonList.add(new GuiButton(0, 0, 0, "Ok (tmp)"));
+    }
+    
+    public GuiRespawnMenu(EntityPlayer player)
+    {
+        this.player = player;
+    }
+    
+    @Override
+    protected void actionPerformed(GuiButton btn) {
+        switch(btn.id)
+        {
+            case 0:
+                this.mc.thePlayer.respawnPlayer();
+                this.mc.displayGuiScreen((GuiScreen)null);
+                System.out.println("Respawned!");
+                DataWatcher dw = player.getDataWatcher();
+                dw.updateObject(25, MinecraftLifeRPG.proxy.getSide());
+                MinecraftLifeRPG.network.sendToServer(new PacketSync(MinecraftLifeRPG.proxy.getSide()));
+                MinecraftLifeRPG.proxy.setSide(0);
+                break;
+        }
+    }
+
+}
+

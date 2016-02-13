@@ -1,0 +1,58 @@
+package me.diabolicatrix.entities;
+
+import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
+import me.diabolicatrix.other.LifeTraderEEP;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.ThreadDownloadImageData;
+import net.minecraft.client.renderer.entity.RenderBiped;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.entity.DataWatcher;
+import net.minecraft.util.ResourceLocation;
+
+public class RenderLifeTrader extends RenderBiped<EntityLifeTrader>
+{
+
+    private static final ResourceLocation zombieTextures = new ResourceLocation(MinecraftLifeRPG.MODID + ":textures/entity/zombie.png");
+    public ResourceLocation locationSkin;
+    public ThreadDownloadImageData downloadImageSkin = null;
+    public String textureChanged;
+
+    public RenderLifeTrader(RenderManager renderManagerIn, ModelBiped model, float shadow)
+    {
+        super(renderManagerIn, model, shadow);
+    }
+
+    protected ResourceLocation getEntityTexture(EntityLifeTrader living)
+    {
+        LifeTraderEEP props = LifeTraderEEP.get(living);
+        System.out.println(props.texture);
+        DataWatcher dw = living.getDataWatcher();
+        String texture = dw.getWatchableObjectString(20);
+        TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+        Object object = texturemanager.getTexture(props.getLocation(texture));
+        
+        if(props.texture != texture)
+        {
+            System.out.println("trying to download");
+            props.downloadImage = null;
+        }
+        if(props.downloadImage == null)
+        {
+            System.out.println("downloading...");
+            props.downloadImage = props.getDownloadImage(props.getLocation(texture), texture);
+        }
+        props.texture = texture;
+        return props.getLocation(texture);
+    }
+
+    /*
+     * @Override
+     * protected ResourceLocation getEntityTexture(EntityLifeTrader living)
+     * {
+     * return zombieTextures;
+     * }
+     */
+
+}

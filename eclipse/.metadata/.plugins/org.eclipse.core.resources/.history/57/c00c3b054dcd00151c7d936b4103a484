@@ -1,0 +1,15 @@
+package me.diabolicatrix.mcliferpg;
+
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.Instance;
+
+
+
+@Mod(modid = "mclrpg", name = "Minecraft Life RPG", version = "0.1")
+public class MinecraftLifeRPG
+{
+    public static final String MODID = "mclrpg";
+
+    @Instance("mclrpg")
+    public static MinecraftLifeRPG mclrpg;
+}
