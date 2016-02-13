@@ -83,7 +83,7 @@ public class GuiMarket extends GuiMinecraftLife
         switch(btn.id)
         {
             case 1:
-                Minecraft.getMinecraft().displayGuiScreen(null);
+                //Minecraft.getMinecraft().displayGuiScreen(null);
                 break;
             case 2:
                 Minecraft.getMinecraft().displayGuiScreen(null);
