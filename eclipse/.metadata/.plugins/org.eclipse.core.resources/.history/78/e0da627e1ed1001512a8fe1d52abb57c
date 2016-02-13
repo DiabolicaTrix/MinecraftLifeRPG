@@ -1,6 +1,0 @@
-package me.diabolicatrix.gui;
-
-public class GuiTraderConfigurator extends GuiScreen
-{
-
-}
