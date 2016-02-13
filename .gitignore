@@ -18,5 +18,9 @@ build
 .gradle
 
 # other
-eclipse
-run
+eclipse/
+run/
+build/
+bin/
+gradle/
+*.txt
