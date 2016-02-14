@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
-import me.diabolicatrix.other.PermEEP;
+import me.diabolicatrix.other.PlayerEEP;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,23 +16,28 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class PacketPermEEP implements IMessage
+public class PacketPlayerEEP implements IMessage
 {
     public List<String> licenses;
+    
+    public int side;
 
-    public PacketPermEEP()
+    public PacketPlayerEEP()
     {
 
     }
 
-    public PacketPermEEP(List<String> licenses)
+    public PacketPlayerEEP(List<String> licenses, int side)
     {
         this.licenses = licenses;
+        this.side = side;
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
     {
+        this.side = buf.readInt();
+        
         int licenseCount = buf.readInt();
         
         this.licenses = new ArrayList<String>();
@@ -47,6 +52,8 @@ public class PacketPermEEP implements IMessage
     @Override
     public void toBytes(ByteBuf buf)
     {
+        buf.writeInt(this.side);
+        
         int licenseCount = this.licenses.size();
 
         buf.writeInt(licenseCount);
@@ -58,23 +65,25 @@ public class PacketPermEEP implements IMessage
         }
     }
 
-    public static class Handler implements IMessageHandler<PacketPermEEP, IMessage>
+    public static class Handler implements IMessageHandler<PacketPlayerEEP, IMessage>
     {
 
         @Override
-        public IMessage onMessage(PacketPermEEP message, MessageContext ctx)
+        public IMessage onMessage(PacketPlayerEEP message, MessageContext ctx)
         {
             if(ctx.netHandler instanceof NetHandlerPlayServer)
             {
-                PermEEP props = PermEEP.get(ctx.getServerHandler().playerEntity);
+                PlayerEEP props = PlayerEEP.get(ctx.getServerHandler().playerEntity);
                 props.licenses = message.licenses;
+                props.side = message.side;
             }
             else if(ctx.netHandler instanceof NetHandlerPlayClient)
             {
                 if(getPlayer() != null)
                 {
-                    PermEEP props = PermEEP.get(getPlayer());
+                    PlayerEEP props = PlayerEEP.get(getPlayer());
                     props.licenses = message.licenses;
+                    props.side = message.side;
                 }
             }
             return null;

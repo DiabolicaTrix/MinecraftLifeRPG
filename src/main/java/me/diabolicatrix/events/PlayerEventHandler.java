@@ -1,18 +1,11 @@
 package me.diabolicatrix.events;
 
-import me.diabolicatrix.gui.GuiRespawnMenu;
 import me.diabolicatrix.gui.GuiSideSelection;
-import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
-import me.diabolicatrix.other.SideEEP;
-import me.diabolicatrix.packets.PacketLoadData;
 import me.diabolicatrix.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGameOver;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class PlayerEventHandler
@@ -36,7 +29,7 @@ public class PlayerEventHandler
     {
         if(event.gui instanceof GuiGameOver && event.button.id == 0)
         {
-            SideEEP.loadProxyData(Minecraft.getMinecraft().thePlayer);
+            //SideEEP.loadProxyData(Minecraft.getMinecraft().thePlayer);
         }
     }
 

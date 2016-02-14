@@ -1,31 +1,14 @@
 package me.diabolicatrix.gui;
 
 import java.io.IOException;
-import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
-import com.google.common.collect.Lists;
-
-import me.diabolicatrix.entities.EntityLifeTrader;
-import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
-import me.diabolicatrix.other.SideEEP;
-import me.diabolicatrix.packets.PacketRequestPlayerList;
-import me.diabolicatrix.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiMainMenu;
-import net.minecraft.client.gui.GuiMultiplayer;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlot;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.DataWatcher;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

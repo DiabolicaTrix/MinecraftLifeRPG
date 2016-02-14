@@ -3,11 +3,8 @@ package me.diabolicatrix.other;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.Lists;
-
 import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
-import me.diabolicatrix.packets.PacketPermEEP;
-import me.diabolicatrix.packets.PacketSideEEP;
+import me.diabolicatrix.packets.PacketPlayerEEP;
 import me.diabolicatrix.proxy.CommonProxy;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,36 +13,40 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 
-public class PermEEP implements IExtendedEntityProperties
+public class PlayerEEP implements IExtendedEntityProperties
 {
-    public final static String EXT_PROP_NAME = "PermEEP";
+    public final static String EXT_PROP_NAME = "PlayerEEP";
 
     private EntityPlayer player;
 
     public List<String> licenses;
+    public int side;
 
-    public PermEEP(EntityPlayer player)
+    public PlayerEEP(EntityPlayer player)
     {
         this.player = player;
+        this.side = 0;
         this.licenses = new ArrayList<String>();
     }
 
     public static final void register(EntityPlayer player)
     {
-        player.registerExtendedProperties(PermEEP.EXT_PROP_NAME, new PermEEP(player));
+        player.registerExtendedProperties(PlayerEEP.EXT_PROP_NAME, new PlayerEEP(player));
     }
 
-    public static final PermEEP get(EntityPlayer player)
+    public static final PlayerEEP get(EntityPlayer player)
     {
-        return (PermEEP)player.getExtendedProperties(EXT_PROP_NAME);
+        return (PlayerEEP)player.getExtendedProperties(EXT_PROP_NAME);
     }
 
     @Override
     public void saveNBTData(NBTTagCompound compound)
     {
         NBTTagCompound properties = new NBTTagCompound();
-
+        
         int licenseCount = this.licenses.size();
+        
+        properties.setInteger("Side", this.side);
         
         properties.setInteger("LicenseCount", licenseCount);
         
@@ -63,6 +64,8 @@ public class PermEEP implements IExtendedEntityProperties
     {
         NBTTagCompound properties = (NBTTagCompound)compound.getTag(EXT_PROP_NAME);
         
+        this.side = properties.getInteger("Side");
+        
         int licenseCount = properties.getInteger("LicenseCount");
         
         for(int i = 0; licenseCount > 0 && i < licenseCount; i++)
@@ -77,11 +80,11 @@ public class PermEEP implements IExtendedEntityProperties
         if(!player.worldObj.isRemote)
         {
             EntityPlayerMP player1 = (EntityPlayerMP)player;
-            MinecraftLifeRPG.network.sendTo(new PacketPermEEP(this.licenses), player1);
+            MinecraftLifeRPG.network.sendTo(new PacketPlayerEEP(this.licenses, this.side), player1);
         }
         else
         {
-            MinecraftLifeRPG.network.sendToServer(new PacketPermEEP(this.licenses));
+            MinecraftLifeRPG.network.sendToServer(new PacketPlayerEEP(this.licenses, this.side));
         }
     }
 
@@ -92,7 +95,7 @@ public class PermEEP implements IExtendedEntityProperties
 
     public static void saveProxyData(EntityPlayer player)
     {
-        PermEEP playerData = PermEEP.get(player);
+        PlayerEEP playerData = PlayerEEP.get(player);
         NBTTagCompound savedData = new NBTTagCompound();
 
         playerData.saveNBTData(savedData);
@@ -101,7 +104,7 @@ public class PermEEP implements IExtendedEntityProperties
 
     public static void loadProxyData(EntityPlayer player)
     {
-        PermEEP playerData = PermEEP.get(player);
+        PlayerEEP playerData = PlayerEEP.get(player);
         NBTTagCompound savedData = CommonProxy.getPermEntityData(getSaveKey(player));
 
         if(savedData != null)
@@ -126,6 +129,17 @@ public class PermEEP implements IExtendedEntityProperties
     public void addLicense(String license)
     {
         this.licenses.add(license);
+        this.sync();
+    }
+
+    public int getSide()
+    {
+        return side;
+    }
+
+    public void setSide(int side)
+    {
+        this.side = side;
         this.sync();
     }
 

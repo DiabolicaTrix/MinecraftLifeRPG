@@ -1,11 +1,9 @@
 package me.diabolicatrix.gui;
 
-import me.diabolicatrix.other.SideEEP;
 import me.diabolicatrix.proxy.CommonProxy;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class GuiRespawnMenu extends GuiScreen
 {

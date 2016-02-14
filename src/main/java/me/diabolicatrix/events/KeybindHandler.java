@@ -1,12 +1,7 @@
 package me.diabolicatrix.events;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import me.diabolicatrix.gui.GuiPlayerMenu;
-import me.diabolicatrix.other.PermEEP;
-import me.diabolicatrix.other.SideEEP;
+import me.diabolicatrix.other.PlayerEEP;
 import me.diabolicatrix.proxy.ClientProxy;
 import me.diabolicatrix.proxy.CommonProxy;
 import net.minecraft.client.Minecraft;
@@ -22,15 +17,12 @@ public class KeybindHandler {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         if(ClientProxy.debug.isPressed())
         {
-            SideEEP props = SideEEP.get(player);
-            PermEEP prop = PermEEP.get(player);
+            PlayerEEP prop = PlayerEEP.get(player);
             if(player.isSneaking())
             {
                 prop.addLicense("Test");
             }
             System.out.println(CommonProxy.extendedEntityData);
-            System.out.println(CommonProxy.extendedPermEntityData);
-            System.out.println(props.getSide());
         	System.out.println(prop.getLicenses());
         }
         else if(ClientProxy.playerMenu.isPressed())

@@ -5,13 +5,12 @@ import java.io.IOException;
 import org.lwjgl.opengl.GL11;
 
 import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
-import me.diabolicatrix.other.SideEEP;
+import me.diabolicatrix.other.PlayerEEP;
 import me.diabolicatrix.packets.PacketRequestPlayerList;
 import me.diabolicatrix.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMainMenu;
-import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlot;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -100,7 +99,7 @@ public class GuiSideSelection extends GuiScreen
             case 2:
                 if(side > 0)
                 {
-                    SideEEP props = SideEEP.get(player);
+                    PlayerEEP props = PlayerEEP.get(player);
                     props.setSide(side);
                     ClientProxy.setLoaded(true);
                     Minecraft.getMinecraft().currentScreen = (GuiScreen)null;

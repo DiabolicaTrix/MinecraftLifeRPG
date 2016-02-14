@@ -1,11 +1,9 @@
 package me.diabolicatrix.mcliferpg;
 
-import me.diabolicatrix.events.KeybindHandler;
 import me.diabolicatrix.events.CommonEventHandler;
+import me.diabolicatrix.events.KeybindHandler;
 import me.diabolicatrix.events.PlayerEventHandler;
-import me.diabolicatrix.packets.PacketLoadData;
-import me.diabolicatrix.packets.PacketPermEEP;
-import me.diabolicatrix.packets.PacketSideEEP;
+import me.diabolicatrix.packets.PacketPlayerEEP;
 import me.diabolicatrix.packets.PacketPlayerList;
 import me.diabolicatrix.packets.PacketRequestPlayerList;
 import me.diabolicatrix.proxy.CommonProxy;
@@ -43,11 +41,8 @@ public class MinecraftLifeRPG
         network = NetworkRegistry.INSTANCE.newSimpleChannel("MCLRPG");
         network.registerMessage(PacketRequestPlayerList.Handler.class, PacketRequestPlayerList.class, 0, Side.SERVER);
         network.registerMessage(PacketPlayerList.Handler.class, PacketPlayerList.class, 1, Side.CLIENT);  
-        network.registerMessage(PacketSideEEP.Handler.class, PacketSideEEP.class, 2, Side.SERVER);
-        network.registerMessage(PacketSideEEP.Handler.class, PacketSideEEP.class, 2, Side.CLIENT);
-        network.registerMessage(PacketLoadData.Handler.class, PacketLoadData.class, 3, Side.SERVER);
-        network.registerMessage(PacketPermEEP.Handler.class, PacketPermEEP.class, 4, Side.SERVER);
-        network.registerMessage(PacketPermEEP.Handler.class, PacketPermEEP.class, 4, Side.CLIENT);
+        network.registerMessage(PacketPlayerEEP.Handler.class, PacketPlayerEEP.class, 2, Side.SERVER);
+        network.registerMessage(PacketPlayerEEP.Handler.class, PacketPlayerEEP.class, 2, Side.CLIENT);
         proxy.registerKeybinds();
         ItemRegistry.registerItems();
     }
