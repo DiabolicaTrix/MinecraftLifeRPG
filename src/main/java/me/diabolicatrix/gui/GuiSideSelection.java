@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.lwjgl.opengl.GL11;
 
 import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
-import me.diabolicatrix.other.PlayerEEP;
+import me.diabolicatrix.other.SideEEP;
 import me.diabolicatrix.packets.PacketRequestPlayerList;
 import me.diabolicatrix.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
@@ -100,7 +100,7 @@ public class GuiSideSelection extends GuiScreen
             case 2:
                 if(side > 0)
                 {
-                    PlayerEEP props = PlayerEEP.get(player);
+                    SideEEP props = SideEEP.get(player);
                     props.setSide(side);
                     ClientProxy.setLoaded(true);
                     Minecraft.getMinecraft().currentScreen = (GuiScreen)null;
@@ -114,14 +114,14 @@ public class GuiSideSelection extends GuiScreen
             case 3: 
                 if(!this.mc.isIntegratedServerRunning())
                 {
-                    ClientProxy.setLoaded(true);
+                    ClientProxy.setLoaded(false);
                     this.mc.theWorld.sendQuittingDisconnectingPacket();
                     this.mc.loadWorld((WorldClient)null);
-                    this.mc.displayGuiScreen(new GuiMultiplayer(new GuiMainMenu()));
+                    this.mc.displayGuiScreen(new GuiMainMenu());
                 }
                 else
                 {
-                    ClientProxy.setLoaded(true);
+                    ClientProxy.setLoaded(false);
                     this.mc.theWorld.sendQuittingDisconnectingPacket();
                     this.mc.loadWorld((WorldClient)null);
                     this.mc.displayGuiScreen(new GuiMainMenu());

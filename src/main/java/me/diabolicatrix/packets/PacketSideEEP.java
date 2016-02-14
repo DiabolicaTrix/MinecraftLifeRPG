@@ -1,27 +1,31 @@
 package me.diabolicatrix.packets;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.netty.buffer.ByteBuf;
-import me.diabolicatrix.other.PlayerEEP;
+import me.diabolicatrix.other.SideEEP;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.NetHandlerPlayServer;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class PacketPlayerEEP implements IMessage
+public class PacketSideEEP implements IMessage
 {
     public int side;
 
-    public PacketPlayerEEP()
+    public PacketSideEEP()
     {
 
     }
 
-    public PacketPlayerEEP(int side)
+    public PacketSideEEP(int side)
     {
         this.side = side;
     }
@@ -38,21 +42,24 @@ public class PacketPlayerEEP implements IMessage
         buf.writeInt(this.side);
     }
 
-    public static class Handler implements IMessageHandler<PacketPlayerEEP, IMessage>
+    public static class Handler implements IMessageHandler<PacketSideEEP, IMessage>
     {
 
         @Override
-        public IMessage onMessage(PacketPlayerEEP message, MessageContext ctx)
+        public IMessage onMessage(PacketSideEEP message, MessageContext ctx)
         {
             if(ctx.netHandler instanceof NetHandlerPlayServer)
             {
-                PlayerEEP props = PlayerEEP.get(ctx.getServerHandler().playerEntity);
-                props.setSide(message.side);
+                SideEEP props = SideEEP.get(ctx.getServerHandler().playerEntity);
+                props.side = message.side;
             }
             else if(ctx.netHandler instanceof NetHandlerPlayClient)
             {
-                PlayerEEP props = PlayerEEP.get(getPlayer());
-                props.setSide(message.side);
+                if(getPlayer() != null)
+                {
+                    SideEEP props = SideEEP.get(getPlayer());
+                    props.side = message.side;
+                }
             }
             return null;
         }
@@ -60,7 +67,7 @@ public class PacketPlayerEEP implements IMessage
         @SideOnly(Side.CLIENT)
         public static EntityPlayer getPlayer()
         {
-        return Minecraft.getMinecraft().thePlayer;
+            return Minecraft.getMinecraft().thePlayer;
         }
     }
 

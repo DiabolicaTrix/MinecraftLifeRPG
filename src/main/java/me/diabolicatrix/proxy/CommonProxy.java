@@ -16,8 +16,9 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class CommonProxy implements IGuiHandler
 {
-    private static final Map<String, NBTTagCompound> extendedEntityData = new HashMap<String, NBTTagCompound>();
-    
+    public static final Map<String, NBTTagCompound> extendedEntityData = new HashMap<String, NBTTagCompound>();
+    public static final Map<String, NBTTagCompound> extendedPermEntityData = new HashMap<String, NBTTagCompound>();
+
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
     {
@@ -31,28 +32,40 @@ public class CommonProxy implements IGuiHandler
             return new GuiSideSelection(player);
         return null;
     }
-    
+
     public void registerKeybinds()
     {
-        
+
     }
-    
+
     public void registerRenders()
     {
-        
+
     }
-    
+
     public void registerEntities()
     {
         EntityRegistry.registerModEntity(EntityLifeTrader.class, "lifeTrader", 0, MinecraftLifeRPG.instance, 50, 1, true);
     }
-    
-    public static void storeEntityData(String uuid, NBTTagCompound compound) {
+
+    public static void storeEntityData(String uuid, NBTTagCompound compound)
+    {
         extendedEntityData.put(uuid, compound);
     }
 
-    public static NBTTagCompound getEntityData(String uuid) {
+    public static NBTTagCompound getEntityData(String uuid)
+    {
         return extendedEntityData.remove(uuid);
+    }
+
+    public static void storePermEntityData(String uuid, NBTTagCompound compound)
+    {
+        extendedPermEntityData.put(uuid, compound);
+    }
+
+    public static NBTTagCompound getPermEntityData(String uuid)
+    {
+        return extendedPermEntityData.remove(uuid);
     }
 
 }

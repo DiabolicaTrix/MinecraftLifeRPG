@@ -18,6 +18,7 @@ public class ClientProxy extends CommonProxy
     public static boolean isLoaded = false;
     public static String[] playerList;
     public static KeyBinding debug;
+    public static KeyBinding playerMenu;
 
     public static String[] getPlayerList()
     {
@@ -50,6 +51,7 @@ public class ClientProxy extends CommonProxy
     public void registerKeybinds()
     {
         debug = new KeyBinding("mclrpg.keybind.debug", Keyboard.KEY_DELETE, "mclrpg.keybind.categories");
+        playerMenu = new KeyBinding("mclrpg.keybind.playerMenu", Keyboard.KEY_Y, "mclrpg.keybind.categories.player");
 
         ClientRegistry.registerKeyBinding(debug);
     }

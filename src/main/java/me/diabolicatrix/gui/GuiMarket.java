@@ -9,7 +9,7 @@ import com.google.common.collect.Lists;
 
 import me.diabolicatrix.entities.EntityLifeTrader;
 import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
-import me.diabolicatrix.other.PlayerEEP;
+import me.diabolicatrix.other.SideEEP;
 import me.diabolicatrix.packets.PacketRequestPlayerList;
 import me.diabolicatrix.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
@@ -97,7 +97,6 @@ public class GuiMarket extends GuiMinecraftLife
         public List()
         { 
             super(GuiMarket.this.mc, 100, 89, 36, 25, GuiMarket.this.fontRendererObj.FONT_HEIGHT + 1);
-            System.out.println("to");
             this.left = 0;
             this.right = 100;
         }
