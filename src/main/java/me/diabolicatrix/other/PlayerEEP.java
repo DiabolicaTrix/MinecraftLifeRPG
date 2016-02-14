@@ -107,6 +107,8 @@ public class PlayerEEP implements IExtendedEntityProperties
         PlayerEEP playerData = PlayerEEP.get(player);
         NBTTagCompound savedData = CommonProxy.getPermEntityData(getSaveKey(player));
 
+        System.out.println(savedData);
+        
         if(savedData != null)
         {
             playerData.loadNBTData(savedData);

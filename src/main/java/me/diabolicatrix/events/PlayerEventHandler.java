@@ -1,6 +1,7 @@
 package me.diabolicatrix.events;
 
 import me.diabolicatrix.gui.GuiSideSelection;
+import me.diabolicatrix.other.PlayerEEP;
 import me.diabolicatrix.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGameOver;
@@ -23,13 +24,13 @@ public class PlayerEventHandler
             }
         }
     }
-
+    
     @SubscribeEvent
     public void onActionPerformed(ActionPerformedEvent.Pre event)
     {
         if(event.gui instanceof GuiGameOver && event.button.id == 0)
         {
-            //SideEEP.loadProxyData(Minecraft.getMinecraft().thePlayer);
+            //PlayerEEP.loadProxyData(Minecraft.getMinecraft().thePlayer);
         }
     }
 

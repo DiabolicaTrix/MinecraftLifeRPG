@@ -16,7 +16,6 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class CommonProxy implements IGuiHandler
 {
-    public static final Map<String, NBTTagCompound> extendedEntityData = new HashMap<String, NBTTagCompound>();
     public static final Map<String, NBTTagCompound> extendedPermEntityData = new HashMap<String, NBTTagCompound>();
 
     @Override
@@ -46,16 +45,6 @@ public class CommonProxy implements IGuiHandler
     public void registerEntities()
     {
         EntityRegistry.registerModEntity(EntityLifeTrader.class, "lifeTrader", 0, MinecraftLifeRPG.instance, 50, 1, true);
-    }
-
-    public static void storeEntityData(String uuid, NBTTagCompound compound)
-    {
-        extendedEntityData.put(uuid, compound);
-    }
-
-    public static NBTTagCompound getEntityData(String uuid)
-    {
-        return extendedEntityData.remove(uuid);
     }
 
     public static void storePermEntityData(String uuid, NBTTagCompound compound)

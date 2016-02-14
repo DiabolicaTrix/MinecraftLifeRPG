@@ -22,7 +22,8 @@ public class KeybindHandler {
             {
                 prop.addLicense("Test");
             }
-            System.out.println(CommonProxy.extendedEntityData);
+            System.out.println(CommonProxy.extendedPermEntityData);
+            System.out.println(prop.getSide());
         	System.out.println(prop.getLicenses());
         }
         else if(ClientProxy.playerMenu.isPressed())

@@ -26,7 +26,6 @@ public class GuiRespawnMenu extends GuiScreen
     @Override
     public void initGui()
     {
-        System.out.println(CommonProxy.extendedEntityData);
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(0, 0, 0, "Ok (tmp)"));
         for (GuiButton guibutton : this.buttonList)

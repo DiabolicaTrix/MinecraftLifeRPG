@@ -2,7 +2,11 @@ package me.diabolicatrix.events;
 
 import me.diabolicatrix.other.PlayerEEP;
 import me.diabolicatrix.proxy.ClientProxy;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGameOver;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -25,25 +29,29 @@ public class CommonEventHandler
     {
         if(!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer)
         {
+            
             PlayerEEP.saveProxyData((EntityPlayer) event.entity);
         }
     }
-
+    
     @SubscribeEvent
-    public void onPlayerLogout(PlayerLoggedOutEvent event)
+    public void onEntityJoinWorld(EntityJoinWorldEvent event)
     {
-        if(event.player.worldObj.isRemote)
+        if(!event.world.isRemote && event.entity instanceof EntityPlayer)
         {
-            ClientProxy.setLoaded(false);
+            System.out.println("Join World");
+            PlayerEEP.loadProxyData((EntityPlayer) event.entity);
         }
     }
     
     @SubscribeEvent
     public void onPlayerLogin(PlayerLoggedInEvent event)
     {
+        
         if(!event.player.worldObj.isRemote && event.player instanceof EntityPlayer)
         {
             PlayerEEP.loadProxyData((EntityPlayer) event.player);
         }
+        ClientProxy.setLoaded(false);
     }
 }
