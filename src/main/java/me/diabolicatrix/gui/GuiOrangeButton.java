@@ -8,10 +8,10 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
-public class GuiBlackButton extends GuiButton
+public class GuiOrangeButton extends GuiButton
 {
 
-    public GuiBlackButton(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText)
+    public GuiOrangeButton(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText)
     {
         super(buttonId, x, y, widthIn, heightIn, buttonText);
     }
@@ -37,10 +37,10 @@ public class GuiBlackButton extends GuiButton
         GlStateManager.disableTexture2D();
         
         wr.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        wr.pos(this.xPosition, this.yPosition, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 230).endVertex();
-        wr.pos(this.xPosition, this.yPosition + this.height, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 230).endVertex();
-        wr.pos(this.xPosition + this.width, this.yPosition + this.height, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 230).endVertex();
-        wr.pos(this.xPosition + this.width, this.yPosition, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 230).endVertex();
+        wr.pos(this.xPosition, this.yPosition, 0.0D).tex(0.0D, 1.0D).color(157, 107, 20, 255).endVertex();
+        wr.pos(this.xPosition, this.yPosition + this.height, 0.0D).tex(1.0D, 1.0D).color(157, 107, 20, 255).endVertex();
+        wr.pos(this.xPosition + this.width, this.yPosition + this.height, 0.0D).tex(1.0D, 0.0D).color(157, 107, 20, 255).endVertex();
+        wr.pos(this.xPosition + this.width, this.yPosition, 0.0D).tex(0.0D, 0.0D).color(157, 107, 20, 255).endVertex();
         tessellator.draw();
         
         GlStateManager.enableTexture2D();

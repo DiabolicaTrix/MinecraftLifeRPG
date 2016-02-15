@@ -17,10 +17,10 @@ public class GuiMinecraftLife extends GuiUtils
             this.startDrawing();
             
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-            worldrenderer.pos(startX, startY, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 240).endVertex();
-            worldrenderer.pos(startX, endY, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 240).endVertex();
-            worldrenderer.pos(endX, endY, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 240).endVertex();
-            worldrenderer.pos(endX, startY, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 240).endVertex();
+            worldrenderer.pos(startX, startY, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 230).endVertex();
+            worldrenderer.pos(startX, endY, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 230).endVertex();
+            worldrenderer.pos(endX, endY, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 230).endVertex();
+            worldrenderer.pos(endX, startY, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 230).endVertex();
             tessellator.draw();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
             worldrenderer.pos(startX, startY, 0.0D).tex(0.0D, 1.0D).color(157, 107, 20, 255).endVertex();
@@ -60,10 +60,10 @@ public class GuiMinecraftLife extends GuiUtils
             this.startDrawing();
             
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-            worldrenderer.pos(startX, startY, 0.0D).tex(0.0D, 1.0D).color(25, 25, 25, 250).endVertex();
-            worldrenderer.pos(startX, startY + height, 0.0D).tex(1.0D, 1.0D).color(25, 25, 25, 250).endVertex();
-            worldrenderer.pos(endX, startY + height, 0.0D).tex(1.0D, 0.0D).color(25, 25, 25, 250).endVertex();
-            worldrenderer.pos(endX, startY, 0.0D).tex(0.0D, 0.0D).color(25, 25, 25, 250).endVertex();
+            worldrenderer.pos(startX, startY, 0.0D).tex(0.0D, 1.0D).color(25, 25, 25, 230).endVertex();
+            worldrenderer.pos(startX, startY + height, 0.0D).tex(1.0D, 1.0D).color(25, 25, 25, 230).endVertex();
+            worldrenderer.pos(endX, startY + height, 0.0D).tex(1.0D, 0.0D).color(25, 25, 25, 230).endVertex();
+            worldrenderer.pos(endX, startY, 0.0D).tex(0.0D, 0.0D).color(25, 25, 25, 230).endVertex();
             tessellator.draw();
 
             
