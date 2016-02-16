@@ -1,7 +1,6 @@
 package me.diabolicatrix.events;
 
 import me.diabolicatrix.gui.GuiSideSelection;
-import me.diabolicatrix.other.PlayerEEP;
 import me.diabolicatrix.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGameOver;

@@ -1,11 +1,7 @@
 package me.diabolicatrix.other;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
-import me.diabolicatrix.packets.PacketPlayerEEP;
-import me.diabolicatrix.proxy.CommonProxy;
+import me.diabolicatrix.packets.PacketSyncPlayerEEP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -15,123 +11,69 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 
 public class PlayerEEP implements IExtendedEntityProperties
 {
-    public final static String EXT_PROP_NAME = "PlayerEEP";
+    private final EntityPlayer player;
+    private int side;
 
-    private EntityPlayer player;
-
-    public List<String> licenses;
-    public int side;
+    private static final String EEPNAME = MinecraftLifeRPG.MODID + "playerEEP";
 
     public PlayerEEP(EntityPlayer player)
     {
         this.player = player;
         this.side = 0;
-        this.licenses = new ArrayList<String>();
     }
 
-    public static final void register(EntityPlayer player)
+    public static PlayerEEP get(EntityPlayer player)
     {
-        player.registerExtendedProperties(PlayerEEP.EXT_PROP_NAME, new PlayerEEP(player));
+        return (PlayerEEP)player.getExtendedProperties(EEPNAME);
     }
 
-    public static final PlayerEEP get(EntityPlayer player)
+    public static void register(EntityPlayer player)
     {
-        return (PlayerEEP)player.getExtendedProperties(EXT_PROP_NAME);
+        player.registerExtendedProperties(EEPNAME, new PlayerEEP(player));
+    }
+
+    public boolean isServerSide()
+    {
+        return this.player instanceof EntityPlayerMP;
+    }
+
+    public void sync()
+    {
+        System.out.println("Sync method");
+        if(this.isServerSide())
+        {
+            System.out.println("Sync server");
+            MinecraftLifeRPG.network.sendTo(new PacketSyncPlayerEEP(this.getSide()), (EntityPlayerMP) this.player);
+        }
+        else
+        {
+            System.out.println("Sync client");
+            MinecraftLifeRPG.network.sendToServer(new PacketSyncPlayerEEP(this.getSide()));
+        }
     }
 
     @Override
     public void saveNBTData(NBTTagCompound compound)
     {
-        NBTTagCompound properties = new NBTTagCompound();
+        NBTTagCompound props = new NBTTagCompound();
         
-        int licenseCount = this.licenses.size();
+        props.setInteger("Side", this.getSide());
         
-        properties.setInteger("Side", this.side);
-        
-        properties.setInteger("LicenseCount", licenseCount);
-        
-        for(int i = 0; licenseCount > 0 && i < licenseCount; i++)
-        {
-            System.out.println("License Save");
-            properties.setString("License" + i, this.licenses.get(i));
-        }
-
-        compound.setTag(EXT_PROP_NAME, properties);
+        compound.setTag(EEPNAME, props);
     }
 
     @Override
     public void loadNBTData(NBTTagCompound compound)
     {
-        NBTTagCompound properties = (NBTTagCompound)compound.getTag(EXT_PROP_NAME);
+        NBTTagCompound props = (NBTTagCompound)compound.getTag(EEPNAME);
         
-        this.side = properties.getInteger("Side");
-        
-        int licenseCount = properties.getInteger("LicenseCount");
-        
-        for(int i = 0; licenseCount > 0 && i < licenseCount; i++)
-        {
-            System.out.println("License Load");
-            this.licenses.add(properties.getString("License" + i));
-        }
+        this.setSide(props.getInteger("Side"));
     }
 
-    public void sync()
+    @Override
+    public void init(Entity entity, World world)
     {
-        if(!player.worldObj.isRemote)
-        {
-            EntityPlayerMP player1 = (EntityPlayerMP)player;
-            MinecraftLifeRPG.network.sendTo(new PacketPlayerEEP(this.licenses, this.side), player1);
-        }
-        else
-        {
-            MinecraftLifeRPG.network.sendToServer(new PacketPlayerEEP(this.licenses, this.side));
-        }
-    }
 
-    private static String getSaveKey(EntityPlayer player)
-    {
-        return player.getUniqueID().toString() + ":" + EXT_PROP_NAME;
-    }
-
-    public static void saveProxyData(EntityPlayer player)
-    {
-        PlayerEEP playerData = PlayerEEP.get(player);
-        NBTTagCompound savedData = new NBTTagCompound();
-
-        playerData.saveNBTData(savedData);
-        CommonProxy.storePermEntityData(getSaveKey(player), savedData);
-    }
-
-    public static void loadProxyData(EntityPlayer player)
-    {
-        PlayerEEP playerData = PlayerEEP.get(player);
-        NBTTagCompound savedData = CommonProxy.getPermEntityData(getSaveKey(player));
-
-        System.out.println(savedData);
-        
-        if(savedData != null)
-        {
-            playerData.loadNBTData(savedData);
-        }
-        
-        playerData.sync();
-    }
-
-    public List<String> getLicenses()
-    {
-        return licenses;
-    }
-
-    public void setLicenses(List<String> licenses)
-    {
-        this.licenses = licenses;
-        this.sync();
-    }
-    
-    public void addLicense(String license)
-    {
-        this.licenses.add(license);
-        this.sync();
     }
 
     public int getSide()
@@ -142,13 +84,6 @@ public class PlayerEEP implements IExtendedEntityProperties
     public void setSide(int side)
     {
         this.side = side;
-        this.sync();
-    }
-
-    @Override
-    public void init(Entity entity, World world)
-    {
-
     }
 
 }

@@ -82,20 +82,15 @@ public class GuiSideSelection extends GuiScreen
     
     @Override
     protected void actionPerformed(GuiButton btn) {
-        PlayerEEP props = PlayerEEP.get(player);
         switch(btn.id)
         {
             case 0:  
-                System.out.println(props.getSide());
-                System.out.println(props.getLicenses());
                 this.side = 2;
                 btn.enabled = false;
                 buttonList.get(1).enabled = true;
                 buttonList.get(2).enabled = true;
                 break;
             case 1:
-                System.out.println(props.getSide());
-                System.out.println(props.getLicenses());
                 this.side = 1;
                 btn.enabled = false;
                 buttonList.get(0).enabled = true;
@@ -104,7 +99,9 @@ public class GuiSideSelection extends GuiScreen
             case 2:
                 if(side > 0)
                 {
-                    props.setSide(side);
+                    PlayerEEP.get(player).setSide(side);
+                    System.out.println("Sync");
+                    PlayerEEP.get(player).sync();
                     ClientProxy.setLoaded(true);
                     Minecraft.getMinecraft().currentScreen = (GuiScreen)null;
                     Minecraft.getMinecraft().setIngameFocus();

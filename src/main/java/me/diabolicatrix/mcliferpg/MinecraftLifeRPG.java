@@ -3,9 +3,9 @@ package me.diabolicatrix.mcliferpg;
 import me.diabolicatrix.events.CommonEventHandler;
 import me.diabolicatrix.events.KeybindHandler;
 import me.diabolicatrix.events.PlayerEventHandler;
-import me.diabolicatrix.packets.PacketPlayerEEP;
 import me.diabolicatrix.packets.PacketPlayerList;
 import me.diabolicatrix.packets.PacketRequestPlayerList;
+import me.diabolicatrix.packets.PacketSyncPlayerEEP;
 import me.diabolicatrix.proxy.CommonProxy;
 import me.diabolicatrix.registries.ItemRegistry;
 import net.minecraftforge.common.MinecraftForge;
@@ -40,9 +40,9 @@ public class MinecraftLifeRPG
     {
         network = NetworkRegistry.INSTANCE.newSimpleChannel("MCLRPG");
         network.registerMessage(PacketRequestPlayerList.Handler.class, PacketRequestPlayerList.class, 0, Side.SERVER);
-        network.registerMessage(PacketPlayerList.Handler.class, PacketPlayerList.class, 1, Side.CLIENT);  
-        network.registerMessage(PacketPlayerEEP.Handler.class, PacketPlayerEEP.class, 2, Side.SERVER);
-        network.registerMessage(PacketPlayerEEP.Handler.class, PacketPlayerEEP.class, 2, Side.CLIENT);
+        network.registerMessage(PacketPlayerList.Handler.class, PacketPlayerList.class, 1, Side.CLIENT);
+        network.registerMessage(PacketSyncPlayerEEP.Handler.class, PacketSyncPlayerEEP.class, 2, Side.CLIENT);
+        network.registerMessage(PacketSyncPlayerEEP.Handler.class, PacketSyncPlayerEEP.class, 2, Side.SERVER);
         proxy.registerKeybinds();
         ItemRegistry.registerItems();
     }
