@@ -54,6 +54,8 @@ public class GuiPlayerMenu extends GuiMinecraftLife
         this.buttonList.add(new GuiOrangeButton(5, this.xPos + 240, this.yPos + guiHeight - 18, 45, 13, "Give"));
         this.buttonList.add(new GuiOrangeButton(6, this.xPos + 191, this.yPos + guiHeight - 18, 45, 13, "Use"));
         this.buttonList.add(new GuiOrangeButton(7, this.xPos + 142, this.yPos + guiHeight - 18, 45, 13, "Remove"));
+        
+        this.buttonList.add(new GuiOrangeButton(8, this.xPos + 5, this.yPos + 30, 45, 13, "Give"));
     }
 
     @Override
