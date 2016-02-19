@@ -1,6 +1,8 @@
 package me.diabolicatrix.gui;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import me.diabolicatrix.entities.EntityLifeTrader;
 import net.minecraft.client.Minecraft;
@@ -13,7 +15,8 @@ public class GuiTraderConfigurator extends GuiMinecraftLife
     private GuiListMenu dropdown;
     private EntityPlayer player;
     private EntityLifeTrader trader;
-
+    
+    public List<String> paramList;
     
     @Override
     public void drawScreen(int x, int y, float ticks)
@@ -51,7 +54,8 @@ public class GuiTraderConfigurator extends GuiMinecraftLife
         this.buttonList.clear();
         this.buttonList.add(new GuiBlackButton(1, (xPos + guiWidth) - 40, (yPos + guiHeight) + 1, 40, 15, "OK"));
         this.buttonList.add(new GuiBlackButton(2, xPos, (yPos + guiHeight) + 1, 40, 15, "CANCEL"));
-        this.dropdown = new GuiListMenu(xPos + 5, yPos + 16, 120);
+        this.paramList = new ArrayList<String>();
+        this.dropdown = new GuiListMenu(this.paramList, xPos + 5, yPos + 16, 120);
     }
 
     public GuiTraderConfigurator(EntityPlayer player, EntityLifeTrader trader)

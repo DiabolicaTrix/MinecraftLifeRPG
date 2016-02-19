@@ -99,9 +99,9 @@ public class GuiSideSelection extends GuiScreen
             case 2:
                 if(side > 0)
                 {
-                    PlayerEEP.get(player).setSide(side);
+                    //PlayerEEP.get(player).setSide(side);
                     System.out.println("Sync");
-                    PlayerEEP.get(player).sync();
+                    //PlayerEEP.get(player).sync();
                     ClientProxy.setLoaded(true);
                     Minecraft.getMinecraft().currentScreen = (GuiScreen)null;
                     Minecraft.getMinecraft().setIngameFocus();

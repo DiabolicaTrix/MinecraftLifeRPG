@@ -35,27 +35,31 @@ public class PacketSyncPlayerEEP implements IMessage
         buf.writeInt(this.side);
     }
     
-    public static class Handler implements IMessageHandler<PacketSyncPlayerEEP, IMessage>
+    public static class ServerHandler implements IMessageHandler<PacketSyncPlayerEEP, IMessage>
     {
 
         @Override
         public IMessage onMessage(PacketSyncPlayerEEP message, MessageContext ctx)
         {
-            System.out.println("Packet Received!");
-            if(ctx.netHandler instanceof NetHandlerPlayClient)
-            {
-                System.out.println("Client: " + message.side);
-                PlayerEEP.get(getPlayer()).setSide(message.side);
-            }
-            else if (ctx.netHandler instanceof NetHandlerPlayServer)
-            {
-                System.out.println("Server: " + message.side);
-                PlayerEEP.get(ctx.getServerHandler().playerEntity).setSide(message.side);
-            }
+            System.out.println("Server: " + message.side);
+            PlayerEEP.get(ctx.getServerHandler().playerEntity).setSide(message.side);
             return null;
         }
         
-        @SideOnly(Side.CLIENT)
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public static class ClientHandler implements IMessageHandler<PacketSyncPlayerEEP, IMessage>
+    {
+
+        @Override
+        public IMessage onMessage(PacketSyncPlayerEEP message, MessageContext ctx)
+        {
+            System.out.println("Client: " + message.side);
+            PlayerEEP.get(getPlayer()).setSide(message.side);
+            return null;
+        }
+        
         public EntityPlayer getPlayer()
         {
             return Minecraft.getMinecraft().thePlayer;

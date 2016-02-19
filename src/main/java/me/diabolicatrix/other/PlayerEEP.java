@@ -2,12 +2,16 @@ package me.diabolicatrix.other;
 
 import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
 import me.diabolicatrix.packets.PacketSyncPlayerEEP;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityTracker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import net.minecraftforge.common.util.Constants;
 
 public class PlayerEEP implements IExtendedEntityProperties
 {
@@ -65,9 +69,12 @@ public class PlayerEEP implements IExtendedEntityProperties
     @Override
     public void loadNBTData(NBTTagCompound compound)
     {
-        NBTTagCompound props = (NBTTagCompound)compound.getTag(EEPNAME);
+        if(compound.hasKey(EEPNAME, Constants.NBT.TAG_COMPOUND))
+        {
+            NBTTagCompound props = (NBTTagCompound)compound.getTag(EEPNAME);
         
-        this.setSide(props.getInteger("Side"));
+            this.setSide(props.getInteger("Side"));
+        }
     }
 
     @Override

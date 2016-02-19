@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiListMenu extends GuiUtils
 {
-    private List<String> elementList = Lists.<String>newArrayList();
+    private List<String> elementList;
     private int xPos;
     private int yPos;
     private int width;
@@ -25,12 +25,13 @@ public class GuiListMenu extends GuiUtils
     
     private ResourceLocation btnTexture = new ResourceLocation(MinecraftLifeRPG.MODID + ":textures/gui/widgets.png");
     
-    public GuiListMenu(int x, int y, int width)
+    public GuiListMenu(List list, int x, int y, int width)
     {
         this.xPos = x;
         this.yPos = y;
         this.width = width;
         this.height = 23;
+        this.elementList = list;
     }
     
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
@@ -130,6 +131,6 @@ public class GuiListMenu extends GuiUtils
     
     public String getListString(int id)
     {
-       return id <= (this.elementList.size() - 1) ? this.elementList.get(id) : "No value";
+        return this.elementList.size() == 0 ? "" : id <= (this.elementList.size() - 1) ? this.elementList.get(id) : "";
     }
 }
