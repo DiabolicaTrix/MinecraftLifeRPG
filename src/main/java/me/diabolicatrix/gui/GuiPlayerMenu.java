@@ -83,6 +83,8 @@ public class GuiPlayerMenu extends GuiMinecraftLife
     {
         super.handleMouseInput();
         this.inventoryScrollingList.handleMouseInput();
+        
+        this.buttonList.add(new GuiOrangeButton(8, this.xPos + 5, this.yPos + 30, 45, 13, "Give"));
     }
 
     @Override
