@@ -46,10 +46,10 @@ public class CommonEventHandler
         {
             if(event.original.hasCapability(MinecraftLifeRPG.PLAYER_CAP, null))
             {
-                System.out.println("CAPA");
                 PlayerCapabilities cap = event.original.getCapability(MinecraftLifeRPG.PLAYER_CAP, null);
                 PlayerCapabilities newCap = event.entityPlayer.getCapability(MinecraftLifeRPG.PLAYER_CAP, null);
                 newCap.setTest(cap.getTest());
+                newCap.sync();
             }
         }
     }
@@ -57,10 +57,10 @@ public class CommonEventHandler
     @SubscribeEvent
     public void onAttachCapability(AttachCapabilitiesEvent.Entity event)
     {
-        if(event.getEntity() instanceof EntityPlayer && !event.getEntity().worldObj.isRemote)
+        if(event.getEntity() instanceof EntityPlayer)
         {
             System.out.println("Kappa");
-            event.addCapability(new ResourceLocation(MinecraftLifeRPG.MODID + ":" + event.getEntity().getUniqueID()), new PlayerCapabilities(0));
+            event.addCapability(new ResourceLocation(MinecraftLifeRPG.MODID + ":" + event.getEntity().getUniqueID()), new PlayerCapabilities((EntityPlayer) event.getEntity()));
         }
     }
     

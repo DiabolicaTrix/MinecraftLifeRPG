@@ -21,6 +21,7 @@ public class GuiTraderConfigurator extends GuiMinecraftLife
     @Override
     public void drawScreen(int x, int y, float ticks)
     {
+        this.drawDefaultBackground();
         int guiWidth = 130;
         int guiHeight = 130;
         int xPos = (this.width / 2) - (guiWidth / 2);
