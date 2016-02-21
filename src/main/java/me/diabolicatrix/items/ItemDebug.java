@@ -2,10 +2,7 @@ package me.diabolicatrix.items;
 
 import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
 import me.diabolicatrix.other.PlayerCapabilities;
-import me.diabolicatrix.other.PlayerEEP;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -43,10 +40,10 @@ public class ItemDebug extends Item
         if(playerIn.hasCapability(MinecraftLifeRPG.PLAYER_CAP, null))
         {
             PlayerCapabilities cap = playerIn.getCapability(MinecraftLifeRPG.PLAYER_CAP, null);
-            System.out.println(" Value: " + cap.getTest());
+            System.out.println(" Value: " + cap.getSide());
             if(playerIn.isSneaking())
             {
-                cap.setTest(1);
+                cap.setSide(1);
             }
         }
         

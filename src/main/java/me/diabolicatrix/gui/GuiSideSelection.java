@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.lwjgl.opengl.GL11;
 
 import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
-import me.diabolicatrix.other.PlayerEEP;
 import me.diabolicatrix.packets.PacketRequestPlayerList;
 import me.diabolicatrix.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;

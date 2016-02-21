@@ -7,7 +7,6 @@ import me.diabolicatrix.other.PlayerCapabilities;
 import me.diabolicatrix.packets.PacketPlayerList;
 import me.diabolicatrix.packets.PacketRequestPlayerList;
 import me.diabolicatrix.packets.PacketSyncCapabilities;
-import me.diabolicatrix.packets.PacketSyncPlayerEEP;
 import me.diabolicatrix.proxy.CommonProxy;
 import me.diabolicatrix.registries.ItemRegistry;
 import net.minecraftforge.common.MinecraftForge;
@@ -46,8 +45,6 @@ public class MinecraftLifeRPG
         network = NetworkRegistry.INSTANCE.newSimpleChannel("MCLRPG");
         network.registerMessage(PacketRequestPlayerList.Handler.class, PacketRequestPlayerList.class, 0, Side.SERVER);
         network.registerMessage(PacketPlayerList.Handler.class, PacketPlayerList.class, 1, Side.CLIENT);
-        network.registerMessage(PacketSyncPlayerEEP.ClientHandler.class, PacketSyncPlayerEEP.class, 2, Side.CLIENT);
-        network.registerMessage(PacketSyncPlayerEEP.ServerHandler.class, PacketSyncPlayerEEP.class, 2, Side.SERVER);
         network.registerMessage(PacketSyncCapabilities.ClientHandler.class, PacketSyncCapabilities.class, 3, Side.CLIENT);
         network.registerMessage(PacketSyncCapabilities.ServerHandler.class, PacketSyncCapabilities.class, 3, Side.SERVER);
         proxy.registerKeybinds();

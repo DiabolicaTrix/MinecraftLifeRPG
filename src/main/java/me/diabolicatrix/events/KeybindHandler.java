@@ -1,10 +1,8 @@
 package me.diabolicatrix.events;
 
 import me.diabolicatrix.gui.GuiPlayerMenu;
-import me.diabolicatrix.gui.GuiTraderConfigurator;
 import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
 import me.diabolicatrix.other.PlayerCapabilities;
-import me.diabolicatrix.other.PlayerEEP;
 import me.diabolicatrix.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,10 +23,10 @@ public class KeybindHandler
             if(player.hasCapability(MinecraftLifeRPG.PLAYER_CAP, null))
             {
                 PlayerCapabilities cap = player.getCapability(MinecraftLifeRPG.PLAYER_CAP, null);
-                System.out.println(" Value: " + cap.getTest());
+                System.out.println(" Value: " + cap.getSide());
                 if(player.isSneaking())
                 {
-                    cap.setTest(1);
+                    cap.setSide(1);
                 }
             }
         }

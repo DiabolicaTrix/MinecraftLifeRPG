@@ -2,7 +2,10 @@ package me.diabolicatrix.other;
 
 import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
 import me.diabolicatrix.packets.PacketSyncCapabilities;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ScheduledPacketTask implements Runnable
 {
@@ -18,8 +21,14 @@ public class ScheduledPacketTask implements Runnable
     @Override
     public void run()
     {
-        player.getCapability(MinecraftLifeRPG.PLAYER_CAP, null).setTest(message.side);
-        System.out.println("HEHEH");
+        EntityPlayer player = this.player == null ? getPlayer() : this.player;
+        player.getCapability(MinecraftLifeRPG.PLAYER_CAP, null).setSide(message.side);
+    }
+
+    @SideOnly(Side.CLIENT)
+    private EntityPlayer getPlayer()
+    {
+        return Minecraft.getMinecraft().thePlayer;
     }
 
 }

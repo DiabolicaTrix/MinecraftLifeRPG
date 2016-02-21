@@ -1,12 +1,8 @@
 package me.diabolicatrix.packets;
 
 import io.netty.buffer.ByteBuf;
-import me.diabolicatrix.mcliferpg.MinecraftLifeRPG;
-import me.diabolicatrix.other.PlayerEEP;
 import me.diabolicatrix.other.ScheduledPacketTask;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -39,6 +35,7 @@ public class PacketSyncCapabilities implements IMessage
     
     public static class ServerHandler implements IMessageHandler<PacketSyncCapabilities, IMessage>
     {
+        
         @Override
         public IMessage onMessage(PacketSyncCapabilities message, MessageContext ctx)
         {
@@ -55,7 +52,7 @@ public class PacketSyncCapabilities implements IMessage
         @Override
         public IMessage onMessage(PacketSyncCapabilities message, MessageContext ctx)
         {
-            Minecraft.getMinecraft().addScheduledTask(new ScheduledPacketTask(Minecraft.getMinecraft().thePlayer, message));
+            Minecraft.getMinecraft().addScheduledTask(new ScheduledPacketTask(null, message));
             return null;
         }
         
